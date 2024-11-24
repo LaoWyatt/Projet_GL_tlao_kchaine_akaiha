@@ -1,78 +1,74 @@
 
 package V0_1;
-import java.util.ArrayList;
 
 public class Client {
 	
+	static private int _counter = 0;
 	private int _id_client;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
 	private String _adresse;
-	private ArrayList<int> _commande;
+	
+	
+	Client(String nom, String prenom, String codePostale, String adresse){
+		boolean check = !nom.isEmpty() && !prenom.isEmpty() && !codePostale.isEmpty() && !adresse.isEmpty();
+		
+		if (check) {
+			_id_client = _counter;
+			_counter++;
+			
+			_nom = nom;
+			_prenom = prenom;
+			_code_postale = codePostale;
+			_adresse = adresse;
+		}
+	}
+	
+	
 	
 	public void setId(int newId) {
 		_id_client = newId;
 	}
 	
-	public int getId(void) {
+	public int getId() {
 		return _id_client;
 	}
-	
 	
 	
 	public void setNom(String newNom) {
 		_nom = newNom;
 	}
 	
-	public String getNom(void) {
+	public String getNom() {
 		return _nom;
 	}
 	
-	public void setNom(String newPrenom) {
+	public void setPrenom(String newPrenom) {
 		_prenom = newPrenom;
 	}
 	
-	public String getPrenom(void) {
+	public String getPrenom() {
 		return _prenom;
 	}
 	
 	public void setCodePostal(String newCodePostal) {
-		_code_postal = newCodePostal;
+		_code_postale = newCodePostal;
 	}
 	
-	public String getPrenom(void) {
-		return _code_postal;
+	public String getPostal() {
+		return _code_postale;
 	}
 	
 	public void setAdresse(String newAdresse) {
 		_adresse = newAdresse;
 	}
 	
-	public String getPrenom(void) {
+	public String getAdresse() {
 		return _adresse;
 	}
 	
-	public void setCommande(ArrayList<int> newCommande) {
-		_commande = newCommande;
-	}
 	
-	public ArrayList getCommande(void) {
-		return _commande;
-	}
-	public void addCommande(int idCommande) {
-		list = getCommande;
-		list.add(idCommande);
-		setCommande(list);
-		
-	}
-	
-	public void deleteCommande(int idCommande) {
-		list = getCommande;
-		list.remove(idCommande);
-		setCommande(list);
-		
-	}
 	
 
 }
