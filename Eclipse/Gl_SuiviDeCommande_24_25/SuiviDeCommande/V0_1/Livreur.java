@@ -35,17 +35,17 @@ public class Livreur {
         _id_livreur = id;
     }
 
-    public int getNom() {
+    public String getNom() {
         return _nom;
     }
-    protected void setNom(int n){
+    protected void setNom(String n){
         _nom = n;
     }
     
-    public int getPrenom() {
+    public String getPrenom() {
         return _prenom;
     }
-    protected void setPrenom(int p){
+    protected void setPrenom(String p){
         _prenom = p;
     }
     

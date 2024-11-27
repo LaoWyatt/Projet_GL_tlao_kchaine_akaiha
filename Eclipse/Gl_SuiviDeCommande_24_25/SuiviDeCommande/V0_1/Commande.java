@@ -59,7 +59,7 @@ public class Commande {
     public String getDate() {
         return _date;
     }
-    protected String setDate(String d){
+    protected void setDate(String d){
         _date = d;
     }
 	
