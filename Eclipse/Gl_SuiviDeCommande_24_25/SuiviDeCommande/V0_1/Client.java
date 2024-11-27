@@ -5,6 +5,7 @@ public class Client {
 	
 	static private int _counter = 0;
 	private int _id_client;
+	private String _password;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
@@ -66,6 +67,16 @@ public class Client {
 	
 	public String getAdresse() {
 		return _adresse;
+	}
+	
+	private String cyphering(String password) {
+		String cyp = "";
+		
+		for (int i = 0; i < password.length(); i++) {
+			cyp += (char) (((int)password.charAt(i) * 57 + 8 - 10 + 6) % 255);
+		}
+		
+		return cyp;
 	}
 	
 	
