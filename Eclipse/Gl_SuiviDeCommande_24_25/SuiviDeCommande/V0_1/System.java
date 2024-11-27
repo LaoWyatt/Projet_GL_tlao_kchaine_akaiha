@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class System {
 	
 	ArrayList<?> delivers;
-	ArrayList<?> clients;
+	ArrayList<Client> clients;
 	
 	
 
