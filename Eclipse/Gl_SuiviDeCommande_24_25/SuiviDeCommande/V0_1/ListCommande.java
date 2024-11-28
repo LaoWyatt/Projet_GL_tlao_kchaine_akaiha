@@ -11,7 +11,7 @@ public class ListCommande {
 
     //----------CONSTRUCTEURS----------//
 
-    ListCommande(ArrayList<Commande> l_com, int c){
+    ListCommande(){
 
         //
 
