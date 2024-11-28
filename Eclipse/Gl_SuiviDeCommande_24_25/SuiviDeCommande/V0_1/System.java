@@ -21,5 +21,32 @@ public class System {
 		// TODO Auto-generated method stub
 
 	}
+	
+	public void setDelivers(ArrayList<Livreur> newDelivers){
+		_delivers = newDelivers;
+	}
+
+	
+	
+	public ArrayList<Livreur> getDelivers(){
+		return _delivers;
+	}
+	
+	
+	public void setClient(ArrayList<Client> newClient){
+		_clients = newClient;
+	}
+
+	
+	
+	public ArrayList<Client> getClients(){
+		return _clients;
+	}
+	
+	
+	
+	public void createCommande(String Contenu, int IdClient, int IdLivreur) {
+		Commande newCommande =  new Commade(IdClient, IdLivreur, Contenu);
+	}
 
 }
