@@ -69,6 +69,13 @@ public class Client {
 		return _adresse;
 	}
 	
+	protected boolean setPassword(String password) {
+		if (!password.isEmpty()) {
+			_password = cyphering(password);
+			return true;
+		} else return false;
+	}
+	
 	private String cyphering(String password) {
 		String cyp = "";
 		
@@ -79,7 +86,9 @@ public class Client {
 		return cyp;
 	}
 	
-	
+	protected boolean verificationPassword(String password) {
+		return _password == cyphering(password);
+	}
 	
 
 }
