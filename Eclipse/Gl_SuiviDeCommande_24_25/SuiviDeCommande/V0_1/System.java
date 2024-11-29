@@ -46,7 +46,7 @@ public class System {
 	
 	
 	public void createCommande(String Contenu, int IdClient, int IdLivreur) {
-		Commande newCommande =  new Commade(IdClient, IdLivreur, Contenu);
+		Commande newCommande =  new Commande(IdClient, IdLivreur, Contenu);
 	}
 
 }
