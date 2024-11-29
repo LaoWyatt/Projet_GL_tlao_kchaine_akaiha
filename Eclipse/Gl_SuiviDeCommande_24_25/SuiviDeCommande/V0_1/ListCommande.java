@@ -7,13 +7,12 @@ public class ListCommande {
 	//----------ATTRIBUTS D'INSTANCE----------//
 
     private ArrayList<Commande> _listCommande = new ArrayList<Commande>();
-	private static int conteur;
 
     //----------CONSTRUCTEURS----------//
 
     ListCommande(){
 
-        //
+        // constructeur
 
     }
 

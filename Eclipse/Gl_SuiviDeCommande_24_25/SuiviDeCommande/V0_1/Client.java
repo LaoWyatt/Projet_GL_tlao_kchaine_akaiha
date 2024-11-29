@@ -4,60 +4,60 @@ public class Client {
 	
 	//----------ATTRIBUTS D'INSTANCE----------//
 	
-	static private int _conteur = 0;
 	private int _id_client;
 	private String _motdepasse;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
 	private String _adresse;
+	static private int _conteur_cl = 1;
 	
 	
 	//----------CONSTRUCTEURS----------//
 	
-	Client(String nom, String prenom, String codePostale, String adresse){
-		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !codePostale.isEmpty() && !adresse.isEmpty();
+	Client(String n, String p, String cp, String a){
+		boolean verif_vide = !n.isEmpty() && !p.isEmpty() && !cp.isEmpty() && !a.isEmpty();
 		
 		if (verif_vide) {
-			_id_client = _conteur;
-			_conteur++;
+			setID_cl(_conteur_cl);
+			setNom_cl(n);
+			setPrenom_cl(p);
+			setCodePostal(cp);
+			setAdresse(a);
 			
-			_nom = nom;
-			_prenom = prenom;
-			_code_postale = codePostale;
-			_adresse = adresse;
+			_conteur_cl++;
+			
 		}
 	}
 	
 	
 	//----------MÉTHODES----------//
 	
-	public void setId(int id) {
+	protected void setID_cl(int id) {
 		_id_client = id;
 	}
 	
-	public int getId() {
+	public int getID_cl() {
 		return _id_client;
 	}
 	
-	
-	public void setNom(String n) {
+	protected void setNom_cl(String n) {
 		_nom = n;
 	}
 	
-	public String getNom() {
+	public String getNom_cl() {
 		return _nom;
 	}
 	
-	public void setPrenom(String p) {
+	protected void setPrenom_cl(String p) {
 		_prenom = p;
 	}
 	
-	public String getPrenom() {
+	public String getPrenom_cl() {
 		return _prenom;
 	}
 	
-	public void setCodePostal(String cp) {
+	protected void setCodePostal(String cp) {
 		_code_postale = cp;
 	}
 	
@@ -65,12 +65,16 @@ public class Client {
 		return _code_postale;
 	}
 	
-	public void setAdresse(String a) {
+	protected void setAdresse(String a) {
 		_adresse = a;
 	}
 	
 	public String getAdresse() {
 		return _adresse;
+	}
+	
+	public int suivreCommande(Commande com) {
+		return com.getStatus();
 	}
 	
 	protected boolean setMDP(String mdp) {
@@ -93,6 +97,5 @@ public class Client {
 	protected boolean verifMDP(String mdp) {
 		return _motdepasse == chiffrement(mdp);
 	}
-	
 
 }
