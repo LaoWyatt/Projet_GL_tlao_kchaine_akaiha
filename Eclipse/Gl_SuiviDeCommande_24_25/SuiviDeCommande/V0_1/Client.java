@@ -1,23 +1,26 @@
-
 package V0_1;
 
 public class Client {
 	
-	static private int _counter = 0;
+	//----------ATTRIBUTS D'INSTANCE----------//
+	
+	static private int _conteur = 0;
 	private int _id_client;
-	private String _password;
+	private String _motdepasse;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
 	private String _adresse;
 	
 	
+	//----------CONSTRUCTEURS----------//
+	
 	Client(String nom, String prenom, String codePostale, String adresse){
-		boolean check = !nom.isEmpty() && !prenom.isEmpty() && !codePostale.isEmpty() && !adresse.isEmpty();
+		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !codePostale.isEmpty() && !adresse.isEmpty();
 		
-		if (check) {
-			_id_client = _counter;
-			_counter++;
+		if (verif_vide) {
+			_id_client = _conteur;
+			_conteur++;
 			
 			_nom = nom;
 			_prenom = prenom;
@@ -27,9 +30,10 @@ public class Client {
 	}
 	
 	
+	//----------MÉTHODES----------//
 	
-	public void setId(int newId) {
-		_id_client = newId;
+	public void setId(int id) {
+		_id_client = id;
 	}
 	
 	public int getId() {
@@ -37,57 +41,57 @@ public class Client {
 	}
 	
 	
-	public void setNom(String newNom) {
-		_nom = newNom;
+	public void setNom(String n) {
+		_nom = n;
 	}
 	
 	public String getNom() {
 		return _nom;
 	}
 	
-	public void setPrenom(String newPrenom) {
-		_prenom = newPrenom;
+	public void setPrenom(String p) {
+		_prenom = p;
 	}
 	
 	public String getPrenom() {
 		return _prenom;
 	}
 	
-	public void setCodePostal(String newCodePostal) {
-		_code_postale = newCodePostal;
+	public void setCodePostal(String cp) {
+		_code_postale = cp;
 	}
 	
-	public String getPostal() {
+	public String getCodePostal() {
 		return _code_postale;
 	}
 	
-	public void setAdresse(String newAdresse) {
-		_adresse = newAdresse;
+	public void setAdresse(String a) {
+		_adresse = a;
 	}
 	
 	public String getAdresse() {
 		return _adresse;
 	}
 	
-	protected boolean setPassword(String password) {
-		if (!password.isEmpty()) {
-			_password = cyphering(password);
+	protected boolean setMDP(String mdp) {
+		if (!mdp.isEmpty()) {
+			_motdepasse = chiffrement(mdp);
 			return true;
 		} else return false;
 	}
 	
-	private String cyphering(String password) {
-		String cyp = "";
+	private String chiffrement(String mdp) {
+		String chif = "";
 		
-		for (int i = 0; i < password.length(); i++) {
-			cyp += (char) (((int)password.charAt(i) * 57 + 8 - 10 + 6) % 255);
+		for (int i = 0; i < mdp.length(); i++) {
+			chif += (char) (((int)mdp.charAt(i) * 57 + 8 - 10 + 6) % 255);
 		}
 		
-		return cyp;
+		return chif;
 	}
 	
-	protected boolean verificationPassword(String password) {
-		return _password == cyphering(password);
+	protected boolean verifMDP(String mdp) {
+		return _motdepasse == chiffrement(mdp);
 	}
 	
 

@@ -13,7 +13,7 @@ public class Commande {
     Commande(int id_com, int id_cl, int id_liv, int stat, String d){
 
         // Vérifie qu'aucune variable est vide
-        boolean verif_vide = !d.equals("");
+        boolean verif_vide = !d.isEmpty();
 
         if (verif_vide){
             setID_com(id_com);

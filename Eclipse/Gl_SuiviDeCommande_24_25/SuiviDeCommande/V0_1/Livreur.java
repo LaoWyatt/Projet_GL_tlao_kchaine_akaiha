@@ -14,7 +14,7 @@ public class Livreur {
     Livreur(int id_liv, String n, String p, boolean dispo){
 
         // Vérifie qu'aucune variable est vide
-        boolean verif_vide = !n.equals("") && !p.equals("");
+        boolean verif_vide = !n.isEmpty() && !p.isEmpty();
 
         if (verif_vide){
             setID(id_liv);
