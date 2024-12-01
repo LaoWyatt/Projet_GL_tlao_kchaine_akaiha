@@ -3,7 +3,15 @@ package V0_1;
 public class Compte{
 	private String _login;
 	private int _graine;
-	private String _motdepasse;
+	private String _motDePasse;
+	
+	
+	Compte(String nouvLogin, String nouvMdp){
+		setLogin(nouvLogin);
+		setMotDePasse(nouvMdp);
+		_graine = (int)(Math.random() * 101);
+	
+	}
 	
 	
 	public String getLogin() {
@@ -14,20 +22,26 @@ public class Compte{
 		_login = nouvLogin;
 	}
 	
-	public String getMotDePasse() {
-		return _motdepasse;
+	protected boolean setMotDePasse(String nouvMotDePasse) {
+		if (!nouvMotDePasse.isEmpty()) {
+			_motDePasse = chiffrement(nouvMotDePasse);
+			return true;
+		} else return false;
 	}
 	
-	protected void setMotDePasse(String nouvMotDePasse) {
-		_login = nouvMotDePasse;
+	private String chiffrement(String mdp) {
+		String chif = "";
+		
+		for (int i = 0; i < mdp.length(); i++) {
+			chif += (char) (((int)mdp.charAt(i) * _graine + 8 - 10 + 6 * _graine) % 255);
+		}
+		
+		return chif;
 	}
 	
-	Compte(String nouvLogin, String nouvMdp){
-		setLogin(nouvLogin);
-		setMotDePasse(nouvMdp);
-		_graine = (int)(Math.random() * 101);
-	
- }
+	protected boolean verificationMotDePasse(String mdp) {
+		return _motDePasse == chiffrement(mdp);
+	}
 }
 
 

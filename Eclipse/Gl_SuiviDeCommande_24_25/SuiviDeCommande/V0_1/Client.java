@@ -76,26 +76,5 @@ public class Client {
 	public int suivreCommande(Commande com) {
 		return com.getStatus();
 	}
-	
-	protected boolean setMDP(String mdp) {
-		if (!mdp.isEmpty()) {
-			_motdepasse = chiffrement(mdp);
-			return true;
-		} else return false;
-	}
-	
-	private String chiffrement(String mdp) {
-		String chif = "";
-		
-		for (int i = 0; i < mdp.length(); i++) {
-			chif += (char) (((int)mdp.charAt(i) * 57 + 8 - 10 + 6) % 255);
-		}
-		
-		return chif;
-	}
-	
-	protected boolean verifMDP(String mdp) {
-		return _motdepasse == chiffrement(mdp);
-	}
 
 }
