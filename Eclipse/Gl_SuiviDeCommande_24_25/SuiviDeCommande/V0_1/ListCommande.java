@@ -33,6 +33,26 @@ public class ListCommande {
     	return false;
     }
     
+    public ArrayList<Commande> getClientCommande(int idClient){
+    	ArrayList<Commande> listeDuClient = new ArrayList<>();
+    	for (Commande uneCommande: _listCommande) {
+    		if (uneCommande.getID_Client() == idClient) {
+    			listeDuClient.add(uneCommande);
+    		}
+    	}
+    	return listeDuClient;
+    }
+    
+    public ArrayList<Commande> getLivreurCommande(int idLivreur){
+    	ArrayList<Commande> listeDuLivreur = new ArrayList<>();
+    	for (Commande uneCommande: _listCommande) {
+    		if (uneCommande.getID_Livreur() == idLivreur) {
+    			listeDuLivreur.add(uneCommande);
+    		}
+    	}
+    	return listeDuLivreur;
+    }
+    
     public boolean modifCommande(Commande com, int num_com) {
         
         if (com != null && num_com >= 0 && num_com <= _listCommande.size()) {
