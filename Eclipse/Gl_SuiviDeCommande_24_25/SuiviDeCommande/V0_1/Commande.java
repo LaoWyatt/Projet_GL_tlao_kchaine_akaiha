@@ -13,17 +13,27 @@ public class Commande {
 
     //----------CONSTRUCTEURS----------//
 
-    Commande(int id_cl, int id_liv, int stat, LocalDate d){
+    Commande(int id_cl, int id_liv){
             
     		setID_com(_conteur_com);
             _id_client = id_cl;
             _id_livreur = id_liv;
-            setStatus(stat);
-            setDate(d);
+            setStatus(1);
             
             _conteur_com++;
 
     }
+    
+    Commande(int id_cl){
+        
+		setID_com(_conteur_com);
+        _id_client = id_cl;
+        _id_livreur = 0;
+        setStatus(1);
+        
+        _conteur_com++;
+
+}
 
 
     //----------MÉTHODES----------//
