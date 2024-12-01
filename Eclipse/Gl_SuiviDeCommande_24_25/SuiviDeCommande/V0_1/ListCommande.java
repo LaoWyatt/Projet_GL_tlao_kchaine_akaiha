@@ -24,36 +24,33 @@ public class ListCommande {
     }
     
     public boolean ajoutCommande(Commande com) {
-        boolean ajout = false;
         
         if (com != null) {
         	_listCommande.add(com);
-        	ajout = true;
+        	return true;
         }
         
-    	return ajout;
+    	return false;
     }
     
     public boolean modifCommande(Commande com, int num_com) {
-        boolean modif = false;
         
         if (com != null && num_com >= 0 && num_com <= _listCommande.size()) {
         	_listCommande.set(num_com, com);
-        	modif = true;
+        	return true;
         }
         
-    	return modif;
+    	return false;
     }
     
     public boolean supCommande(int num_com) {
-        boolean sup = false;
         
         if (num_com >= 0 && num_com <= _listCommande.size()) {
         	_listCommande.remove(num_com);
-        	sup = true;
+        	return true;
         }
         
-    	return sup;
+    	return false;
     }
 	
 }
