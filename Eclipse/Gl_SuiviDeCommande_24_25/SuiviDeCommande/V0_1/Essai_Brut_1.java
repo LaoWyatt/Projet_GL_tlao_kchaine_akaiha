@@ -2,7 +2,7 @@ package V0_1;
 
 import java.util.ArrayList;
 
-public class System {
+public class Essai_Brut_1 {
 	
 	private ArrayList<Livreur> _delivers;
 	private ArrayList<Client> _clients;
@@ -14,12 +14,6 @@ public class System {
 	
 	public void addLivreur() {
 		//;
-	}
-	
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
 	}
 	
 	public void setDelivers(ArrayList<Livreur> newDelivers){
@@ -46,7 +40,17 @@ public class System {
 	
 	
 	public void createCommande(String Contenu, int IdClient, int IdLivreur) {
-		Commande newCommande =  new Commande(IdClient, IdLivreur, Contenu);
+		//Commande newCommande =  new Commande();
 	}
+	
+
+	
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+	
+	
 
 }
