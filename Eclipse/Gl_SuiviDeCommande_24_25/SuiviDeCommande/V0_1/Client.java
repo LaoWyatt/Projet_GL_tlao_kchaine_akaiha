@@ -17,8 +17,7 @@ public class Client extends Compte {
 	Client(String nom, String prenom, String cp, String adresse, String motDePasse){
 		super((nom + prenom + _conteur_cl), motDePasse);
 			
-		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !cp.isEmpty() && !adresse.isEmpty()
-				&& !motDePasse.isEmpty();
+		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !cp.isEmpty() && !adresse.isEmpty();
 		
 		if (verif_vide) {
 			setID_cl(_conteur_cl);
