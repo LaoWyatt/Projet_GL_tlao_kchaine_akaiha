@@ -1,11 +1,10 @@
 package V0_1;
 
-public class Client {
+public class Client extends Compte {
 	
 	//----------ATTRIBUTS D'INSTANCE----------//
 	
 	private int _id_client;
-	private String _motdepasse;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
@@ -15,15 +14,18 @@ public class Client {
 	
 	//----------CONSTRUCTEURS----------//
 	
-	Client(String n, String p, String cp, String a){
-		boolean verif_vide = !n.isEmpty() && !p.isEmpty() && !cp.isEmpty() && !a.isEmpty();
+	Client(String nom, String prenom, String cp, String adresse, String motDePasse){
+		super((nom + prenom + _conteur_cl), motDePasse);
+			
+		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !cp.isEmpty() && !adresse.isEmpty()
+				&& !motDePasse.isEmpty();
 		
 		if (verif_vide) {
 			setID_cl(_conteur_cl);
-			setNom_cl(n);
-			setPrenom_cl(p);
+			setNom_cl(nom);
+			setPrenom_cl(prenom);
 			setCodePostal(cp);
-			setAdresse(a);
+			setAdresse(adresse);
 			
 			_conteur_cl++;
 			
