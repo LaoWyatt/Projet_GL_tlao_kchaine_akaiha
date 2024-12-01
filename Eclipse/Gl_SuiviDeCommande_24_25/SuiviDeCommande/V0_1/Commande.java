@@ -38,8 +38,16 @@ public class Commande {
 
     //----------MÉTHODES----------//
 
-    public int getID_com() {
+    public int getID_commande() {
         return _id_commande;
+    }
+    
+    public int getID_Client() {
+        return _id_client;
+    }
+    
+    public int getID_Livreur() {
+        return _id_livreur;
     }
     
     protected void setID_com(int id_com){
