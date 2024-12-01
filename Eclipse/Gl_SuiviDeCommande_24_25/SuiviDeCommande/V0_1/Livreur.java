@@ -1,6 +1,6 @@
 package V0_1;
 
-public class Livreur {
+public class Livreur extends Compte {
 	
 	//----------ATTRIBUTS D'INSTANCE----------//
 
@@ -12,15 +12,15 @@ public class Livreur {
 
     //----------CONSTRUCTEURS----------//
 
-    Livreur(String n, String p, boolean dispo){
+    Livreur(String nom, String prenom, boolean dispo, String motDePasse){
+    	super((nom + prenom + _conteur_liv), motDePasse);
 
-        // Vérifie qu'aucune variable est vide
-        boolean verif_vide = !n.isEmpty() && !p.isEmpty();
+        boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty();
 
         if (verif_vide){
             setID_liv(_conteur_liv);
-            setNom_liv(n);
-            setPrenom_liv(p);
+            setNom_liv(nom);
+            setPrenom_liv(prenom);
             setDispo(dispo);
 
             _conteur_liv++;
