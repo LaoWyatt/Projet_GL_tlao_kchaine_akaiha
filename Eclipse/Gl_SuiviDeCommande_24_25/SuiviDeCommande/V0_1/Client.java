@@ -20,9 +20,9 @@ public class Client extends Compte {
 		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !cp.isEmpty() && !adresse.isEmpty();
 		
 		if (verif_vide) {
-			setID_cl(_conteur_cl);
-			setNom_cl(nom);
-			setPrenom_cl(prenom);
+			setID_Client(_conteur_cl);
+			setNom_Client(nom);
+			setPrenom_Client(prenom);
 			setCodePostal(cp);
 			setAdresse(adresse);
 			
@@ -34,27 +34,27 @@ public class Client extends Compte {
 	
 	//----------MÉTHODES----------//
 	
-	protected void setID_cl(int id) {
+	protected void setID_Client(int id) {
 		_id_client = id;
 	}
 	
-	public int getID_cl() {
+	public int getID_Client() {
 		return _id_client;
 	}
 	
-	protected void setNom_cl(String n) {
+	protected void setNom_Client(String n) {
 		_nom = n;
 	}
 	
-	public String getNom_cl() {
+	public String getNom_Client() {
 		return _nom;
 	}
 	
-	protected void setPrenom_cl(String p) {
+	protected void setPrenom_Client(String p) {
 		_prenom = p;
 	}
 	
-	public String getPrenom_cl() {
+	public String getPrenom_Client() {
 		return _prenom;
 	}
 	
@@ -72,10 +72,6 @@ public class Client extends Compte {
 	
 	public String getAdresse() {
 		return _adresse;
-	}
-	
-	public int suivreCommande(Commande com) {
-		return com.getStatus();
 	}
 
 }

@@ -15,7 +15,7 @@ public class Commande {
 
     Commande(int id_cl, int id_liv){
             
-    		setID_com(_conteur_com);
+    		setID_Commande(_conteur_com);
             _id_client = id_cl;
             _id_livreur = id_liv;
             setStatus(1);
@@ -26,7 +26,7 @@ public class Commande {
     
     Commande(int id_cl){
         
-		setID_com(_conteur_com);
+		setID_Commande(_conteur_com);
         _id_client = id_cl;
         _id_livreur = 0;
         setStatus(1);
@@ -38,7 +38,7 @@ public class Commande {
 
     //----------MÉTHODES----------//
 
-    public int getID_commande() {
+    public int getID_Commande() {
         return _id_commande;
     }
     
@@ -50,7 +50,7 @@ public class Commande {
         return _id_livreur;
     }
     
-    protected void setID_com(int id_com){
+    protected void setID_Commande(int id_com){
         _id_commande = id_com;
     }
     

@@ -1,32 +1,36 @@
 package V0_1;
 
 public class Compte{
-	private String _login;
+	private String _nomUtilisateur;
 	private int _graine;
 	private String _motDePasse;
 	
 	
-	Compte(String nouvLogin, String nouvMdp){
-		setLogin(nouvLogin);
-		setMotDePasse(nouvMdp);
+	Compte(String nouvNU, String nouvMDP){
+		
+		set_NomUtilisateur(nouvNU);
+		setMotDePasse(nouvMDP);
 		_graine = (int)(Math.random() * 101);
 	
 	}
 	
 	
-	public String getLogin() {
-		return _login;
+	public String get_NomUtilisateur() {
+		return _nomUtilisateur;
 	}
 	
-	protected void setLogin(String nouvLogin) {
-		_login = nouvLogin;
+	protected void set_NomUtilisateur(String nouvNU) {
+		_nomUtilisateur = nouvNU;
 	}
 	
-	protected boolean setMotDePasse(String nouvMotDePasse) {
-		if (!nouvMotDePasse.isEmpty()) {
-			_motDePasse = chiffrement(nouvMotDePasse);
+	private boolean setMotDePasse(String nouvMDP) {
+		
+		if (!nouvMDP.isEmpty()) {
+			_motDePasse = chiffrement(nouvMDP);
 			return true;
-		} else return false;
+		}
+		
+		return false;
 	}
 	
 	private String chiffrement(String mdp) {
