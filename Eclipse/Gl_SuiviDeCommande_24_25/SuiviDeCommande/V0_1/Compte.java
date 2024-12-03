@@ -3,7 +3,7 @@ package V0_1;
 public class Compte{
 	private String _nomUtilisateur;
 	private int _graine;
-	public String _motDePasse;
+	private String _motDePasse;
 	
 	
 	Compte(String nouvNU, String nouvMDP){
@@ -31,7 +31,7 @@ public class Compte{
 		return false;
 	}
 	
-	public String chiffrement(String mdp) {
+	private String chiffrement(String mdp) {
 		String chif = "";
 		
 		for (int i = 0; i < mdp.length(); i++) {
