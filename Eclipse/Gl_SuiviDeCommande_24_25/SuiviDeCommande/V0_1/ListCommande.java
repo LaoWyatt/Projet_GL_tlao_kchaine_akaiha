@@ -23,6 +23,11 @@ public class ListCommande {
     	return _listeCommandes.get(num_com);
     }
     
+    protected ArrayList getCommandes(Client c) {
+    	if (c.getID_Client() == 0) return _listeCommandes;
+    	else return null;
+    }
+    
     public ArrayList<Commande> getClientCommande(int idClient){
     	ArrayList<Commande> listeDuClient = new ArrayList<>();
     	
