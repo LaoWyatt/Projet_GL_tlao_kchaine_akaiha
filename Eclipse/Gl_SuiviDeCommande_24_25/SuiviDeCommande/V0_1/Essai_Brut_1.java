@@ -79,7 +79,7 @@ public class Essai_Brut_1 {
 		// TODO Auto-generated method stub
 		
 		int decision = -1;
-		_clients.add(new Client("Hello","World","1234","python","password"));
+		_clients.add(new Client("Ultimate","Admin","00000","JAVA","HelloWorld"));
 		
 		
 		while (decision != 0){
@@ -87,7 +87,13 @@ public class Essai_Brut_1 {
 			
 			System.out.print("[ Liste de processus ]\n>> Saisisez 0 pour quitter\n\n");
 			System.out.print("1> Connexion\n");
-			System.out.print("2> Inscription\n");
+			
+			if (_connecter == null) {
+				System.out.print("2> Inscription\n");
+			} else {
+				System.out.print("2> Déconnexion\n");
+			}
+
 			System.out.print("3> ...\n");
 			System.out.print("4> ...\n");
 			System.out.print("5> ...\n");
@@ -104,27 +110,41 @@ public class Essai_Brut_1 {
 				break;
 				
 			case 1:
-				System.out.print(">>> Connexion du compte <<<\n\n");
-				System.out.print("Nom utilisateur : ");
-				
-				String nomUtilisateur = keyboard.next();
-				
-				System.out.print("\nMot de passe : ");
-				
-				String mdp  = keyboard.next();
-				
-				System.out.print("\nLivreur (Y/N) :");
-				
-				String type = keyboard.next();
-				int logicType = 0;
-				if (type == "Y") logicType = 1;
-				
-				connexion(logicType,nomUtilisateur,mdp);
-				
 				if (_connecter == null) {
-					System.out.print("\n\nLogin ou Mot de passe incorrect !\n\n");
+					System.out.print(">>> Connexion du compte <<<\n\n");
+					System.out.print("Nom utilisateur : ");
+					
+					String nomUtilisateur = keyboard.next();
+					
+					System.out.print("\nMot de passe : ");
+					
+					String mdp  = keyboard.next();
+					
+					System.out.print("\nLivreur (Y/N) :");
+					
+					String type = keyboard.next();
+					int logicType = 0;
+					if (type == "Y") logicType = 1;
+					
+					connexion(logicType,nomUtilisateur,mdp);
+					
+					if (_connecter == null) {
+						System.out.print("\n\nLogin ou Mot de passe incorrect !\n\n");
+					} else {
+						System.out.print("\n\nBienvunue "+ _connecter.get_NomUtilisateur() +"\n\n");
+					}
 				} else {
-					System.out.print("\n\nBienvunue "+ _connecter.get_NomUtilisateur() +"\n\n");
+					System.out.print("\n\nConnexion actif en tant que "+ _connecter.get_NomUtilisateur() +" !\n\n");
+				}
+				
+				break;
+				
+			case 2:
+				if (_connecter == null) {
+					
+				} else {
+					System.out.print("\n\nAu revoir "+ _connecter.get_NomUtilisateur() +" !\n\n");
+					_connecter = null;
 				}
 				
 				break;
