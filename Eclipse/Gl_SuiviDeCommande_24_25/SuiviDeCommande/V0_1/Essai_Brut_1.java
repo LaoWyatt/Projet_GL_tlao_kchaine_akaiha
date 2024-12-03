@@ -2,6 +2,7 @@ package V0_1;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io.Console;
 
 public class Essai_Brut_1 {
 	
@@ -68,38 +69,120 @@ public class Essai_Brut_1 {
 		_livreurs = newDelivers;
 	}
 
-	
-	
 	public static ArrayList<Livreur> getDelivers(){
 		return _livreurs;
 	}
-	
 	
 	public static void setClient(ArrayList<Client> newClient){
 		_clients = newClient;
 	}
 
-	
-	
 	public static ArrayList<Client> getClients(){
 		return _clients;
 	}
 	
-	
+	public static void afficherCommandes(ArrayList<Commande> toDisplay) {
+		System.out.println("\n\nID Commande\tID Client\tID Livreur\tDate");
+		
+		for (Commande c: toDisplay) {
+			System.out.println(c.getID_Commande() + "\t" + c.getID_Client() + "\t" + c.getID_Livreur() + "\t" + c.getDate());
+		}
+		
+		System.out.println("\n--------------------------");
+		
+	}
 	
 	public static void createCommande(String Contenu, int IdClient, int IdLivreur) {
 		//Commande newCommande =  new Commande();
 	}
 	
+	public static void gestionDeConnexion(Scanner keyboard) {
+		if (_connecter == null) {
+			System.out.print(">>> Connexion du compte <<<\n\n");
+			System.out.print("Nom utilisateur : ");
+			
+			String nomUtilisateur = keyboard.next();
+			
+			System.out.print("\nMot de passe : ");
 
+			Console console = System.console();
+			String mdp  = new String(console.readPassword("Mot de passe: "));
+			
+			System.out.print("\n(1) Client / (2) Livreur / (3) administrateur :");
+			
+			int type = keyboard.nextInt();
+			
+			connexion(type,nomUtilisateur,mdp);
+			
+			if (_connecter == null) {
+				System.out.print("\n\nLogin ou Mot de passe incorrect !\n\n");
+			} else {
+				System.out.print("\n\nBienvunue "+ _connecter.get_NomUtilisateur() +"\n\n");
+			}
+		} else {
+			System.out.print("\n\nConnexion actif en tant que "+ _connecter.get_NomUtilisateur() +" !\n");
+			System.out.print("Connexion actif en tant que "+ _connecter.getClass().getName() +" !\n\n");
+		}
+	}
+	
+    @SuppressWarnings({ "unlikely-arg-type", "unchecked" })
+	public static void listeCommande(Scanner key) {
+    	if (_connecter != null) {
+			
+			ArrayList<Commande> commandesActuelle = null;
+			boolean gestion = false;
+			
+			if (_connecter.equals(_clients.getClass())) {
+				commandesActuelle = _commandes.getClientCommande((((Client) _connecter).getID_Client()));
+				
+			} else if (_connecter.equals(_livreurs.getClass())) {
+				commandesActuelle = _commandes.getLivreurCommande((((Livreur) _connecter).getID_Livreur()));
+				gestion = true;
+				
+			} else if (_connecter.equals(_administrateurs.getClass())) {
+				commandesActuelle = _commandes.getCommandes();
+				gestion = true;
+			}
+			
+			afficherCommandes(commandesActuelle);
+			
+			if (gestion) {
+				int decision = -1;
+				
+				while (decision != -1) {
+						
+					System.out.print(">> Opération (0 pour sortir) <<\n\n");
+					System.out.print("1> Modifier statut d'une commande\n");
+					System.out.print("2> ...\n\n");
+					
+					System.out.print("Opération : ");
+					decision = key.nextInt();
+					
+					switch(decision) {
+						case 1:
+							System.out.print("\n\nIddentifiant de la Commande : ");
+							int ID = key.nextInt();
+
+							System.out.print("\n[1]En Préparation, [2] En Livraison, [3] Livré : ");
+							int statut = key.nextInt();
+							
+							Commande temporaire = _commandes.getCommande(ID);
+							temporaire.setStatus(statut);
+							break;
+						default:
+							System.out.print("\n\n");
+					}
+				}
+			}
+		} 
+    }
 	
 
-	@SuppressWarnings({ "unlikely-arg-type", "unchecked" })
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		int decision = -1;
-		_clients.add(new Client("Ultimate","Admin","00000","JAVA","HelloWorld"));
+		_administrateurs.add(new Administrateur("Ultimate","Admin","HelloWorld"));
 		
 		
 		while (decision != 0){
@@ -130,32 +213,7 @@ public class Essai_Brut_1 {
 				break;
 				
 			case 1:
-				if (_connecter == null) {
-					System.out.print(">>> Connexion du compte <<<\n\n");
-					System.out.print("Nom utilisateur : ");
-					
-					String nomUtilisateur = keyboard.next();
-					
-					System.out.print("\nMot de passe : ");
-					
-					String mdp  = keyboard.next();
-					
-					System.out.print("\n(1) Client / (2) Livreur / (3) administrateur :");
-					
-					int type = keyboard.nextInt();
-					
-					connexion(type,nomUtilisateur,mdp);
-					
-					if (_connecter == null) {
-						System.out.print("\n\nLogin ou Mot de passe incorrect !\n\n");
-					} else {
-						System.out.print("\n\nBienvunue "+ _connecter.get_NomUtilisateur() +"\n\n");
-					}
-				} else {
-					System.out.print("\n\nConnexion actif en tant que "+ _connecter.get_NomUtilisateur() +" !\n");
-					System.out.print("Connexion actif en tant que "+ _connecter.getClass().getName() +" !\n\n");
-				}
-				
+				gestionDeConnexion(keyboard);
 				break;
 				
 			case 2:
@@ -169,21 +227,8 @@ public class Essai_Brut_1 {
 				break;
 				
 			case 3:
-				if (_connecter != null) {
-					
-					ArrayList<Commande> commandesActuelle;
-					
-					if (_connecter.equals(_clients.getClass()) && ((Client) _connecter).getID_Client() != 0) {
-						commandesActuelle = _commandes.getClientCommande((((Client) _connecter).getID_Client()));
-						
-					} else if (_connecter.equals(_livreurs.getClass())) {
-						commandesActuelle = _commandes.getLivreurCommande((((Livreur) _connecter).getID_Livreur()));
-						
-					} else if (_connecter.equals(_clients.getClass()) && ((Client) _connecter).getID_Client() == 0) {
-						commandesActuelle = _commandes.getCommandes(((Client) _connecter));
-					}
-					
-				}
+				listeCommande(keyboard);
+				break;
 				
 			default:
 				System.out.print("Hello World !\n\n");
