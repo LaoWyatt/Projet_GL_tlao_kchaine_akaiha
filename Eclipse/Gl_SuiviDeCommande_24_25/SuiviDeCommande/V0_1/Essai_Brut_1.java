@@ -6,31 +6,50 @@ import java.util.Scanner;
 public class Essai_Brut_1 {
 	
 	private static Compte _connecter = null;
-	private static ArrayList<Livreur> _delivers = new ArrayList<>();
-	private static ArrayList<Client> _clients = new ArrayList<>();
+	private static ArrayList<Livreur> _livreurs = new ArrayList<>();
+	private static ArrayList<Client> _clients = new ArrayList<>();;
+	private static ArrayList<Administrateur> _administrateurs = new ArrayList<>();
 	private static ListCommande _commandes = new ListCommande();
 	
 	public static void connexion(int type, String nomUtilisateur, String mdp) {
 		int i = 0;
 		
-		if (type == 0 && !_clients.isEmpty()) {
+		switch(type) {
 			
-			while (i < _clients.size() && _connecter == null) {
-				if (_clients.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
-					_connecter = _clients.get(i);
+			case 1:
+				if (!_clients.isEmpty()) {
+					while (i < _clients.size() && _connecter == null) {
+						if (_clients.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+							_connecter = _clients.get(i);
+						}
+						i++;
+					}
 				}
-				i++;
-			}
+				break;
 			
-		} else if (!_delivers.isEmpty()) {
-			
-			while (i < _delivers.size() && _delivers == null) {
-				if (_delivers.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
-					_connecter = _delivers.get(i);
+			case 2:
+				if (!_livreurs.isEmpty()) {
+					
+					while (i < _livreurs.size() && _livreurs == null) {
+						if (_livreurs.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+							_connecter = _livreurs.get(i);
+						}
+						i++;
+					}
 				}
-				i++;
-			}
-			
+				break;
+				
+			case 3:
+				if (!_administrateurs.isEmpty()) {
+					
+					while (i < _administrateurs.size() && _administrateurs == null) {
+						if (_administrateurs.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+							_connecter = _administrateurs.get(i);
+						}
+						i++;
+					}
+				}
+				break;
 		}
 
 		if (_connecter != null && !_connecter.verificationMotDePasse(mdp)) _connecter = null;
@@ -46,13 +65,13 @@ public class Essai_Brut_1 {
 	}
 	
 	public static void setDelivers(ArrayList<Livreur> newDelivers){
-		_delivers = newDelivers;
+		_livreurs = newDelivers;
 	}
 
 	
 	
 	public static ArrayList<Livreur> getDelivers(){
-		return _delivers;
+		return _livreurs;
 	}
 	
 	
@@ -75,6 +94,7 @@ public class Essai_Brut_1 {
 
 	
 
+	@SuppressWarnings({ "unlikely-arg-type", "unchecked" })
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
@@ -92,9 +112,9 @@ public class Essai_Brut_1 {
 				System.out.print("2> Inscription\n");
 			} else {
 				System.out.print("2> Déconnexion\n");
+				System.out.print("3> Liste de Commande\n");
 			}
 
-			System.out.print("3> ...\n");
 			System.out.print("4> ...\n");
 			System.out.print("5> ...\n");
 			System.out.print("6> ...\n\n");
@@ -120,13 +140,11 @@ public class Essai_Brut_1 {
 					
 					String mdp  = keyboard.next();
 					
-					System.out.print("\nLivreur (Y/N) :");
+					System.out.print("\n(1) Client / (2) Livreur / (3) administrateur :");
 					
-					String type = keyboard.next();
-					int logicType = 0;
-					if (type == "Y") logicType = 1;
+					int type = keyboard.nextInt();
 					
-					connexion(logicType,nomUtilisateur,mdp);
+					connexion(type,nomUtilisateur,mdp);
 					
 					if (_connecter == null) {
 						System.out.print("\n\nLogin ou Mot de passe incorrect !\n\n");
@@ -134,7 +152,8 @@ public class Essai_Brut_1 {
 						System.out.print("\n\nBienvunue "+ _connecter.get_NomUtilisateur() +"\n\n");
 					}
 				} else {
-					System.out.print("\n\nConnexion actif en tant que "+ _connecter.get_NomUtilisateur() +" !\n\n");
+					System.out.print("\n\nConnexion actif en tant que "+ _connecter.get_NomUtilisateur() +" !\n");
+					System.out.print("Connexion actif en tant que "+ _connecter.getClass().getName() +" !\n\n");
 				}
 				
 				break;
@@ -148,6 +167,23 @@ public class Essai_Brut_1 {
 				}
 				
 				break;
+				
+			case 3:
+				if (_connecter != null) {
+					
+					ArrayList<Commande> commandesActuelle;
+					
+					if (_connecter.equals(_clients.getClass()) && ((Client) _connecter).getID_Client() != 0) {
+						commandesActuelle = _commandes.getClientCommande((((Client) _connecter).getID_Client()));
+						
+					} else if (_connecter.equals(_livreurs.getClass())) {
+						commandesActuelle = _commandes.getLivreurCommande((((Livreur) _connecter).getID_Livreur()));
+						
+					} else if (_connecter.equals(_clients.getClass()) && ((Client) _connecter).getID_Client() == 0) {
+						commandesActuelle = _commandes.getCommandes(((Client) _connecter));
+					}
+					
+				}
 				
 			default:
 				System.out.print("Hello World !\n\n");
