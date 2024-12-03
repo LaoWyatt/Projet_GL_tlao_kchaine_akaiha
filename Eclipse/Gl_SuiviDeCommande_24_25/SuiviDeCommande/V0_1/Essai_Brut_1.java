@@ -125,6 +125,82 @@ public class Essai_Brut_1 {
 		}
 	}
 	
+	public static void inscription(Scanner keyboard, int type) {
+		
+		Console console = System.console();
+		System.out.print(">> Inscription <<\n\n");
+		
+		String nom = "";
+		while (nom.isBlank()) {
+			System.out.print("\nNom : ");
+			nom = keyboard.next();
+		}
+		
+		String prenom = "";
+		while (prenom.isBlank()) {
+			System.out.print("\nPrénom : ");
+			prenom = keyboard.next();
+		}
+		
+		String mdp = "";
+		while (mdp.isBlank()) {
+			mdp = new String(console.readPassword("\nMot de passe: "));
+		}
+		
+		String confirmation = "";
+		while (confirmation.contentEquals(mdp)) {
+			confirmation = new String(console.readPassword("\nConfirmer mot de passe: "));
+		}
+		
+		switch(type) {
+		
+		case 1:
+			String codePostal = "";
+			while (codePostal.isBlank()) {
+				System.out.print("\nCode postal : ");
+				codePostal = keyboard.next();
+			}
+			
+			String adresse = "";
+			while (adresse.isBlank()) {
+				System.out.print("\nAdresse : ");
+				adresse = keyboard.next();
+			}
+			Client temporaireC = new Client(nom,prenom,codePostal,adresse,mdp);
+			_clients.add(temporaireC);
+			System.out.print("\n\nBienvenue " + temporaireC.getNom_Client() + temporaireC.getPrenom_Client()
+								+ " ! Vôtre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
+								+ ". Veuillez vous connecter à nouveau.\n\n");
+			break;
+			
+		case 2:
+			boolean disponibilite = false;
+			int dispo = -1;
+			while (dispo == -1) {
+				System.out.print("\nDisponibilité : ");
+				dispo = keyboard.nextInt();
+				disponibilite = (dispo == 1);
+			}
+			
+			Livreur temporaireL = new Livreur(nom,prenom,disponibilite,mdp);
+			_livreurs.add(temporaireL);
+			System.out.print("\n\nBienvenue " + temporaireL.getNom_Livreur() + temporaireL.getPrenom_Livreur()
+								+ " ! Vôtre nom d'utilisateur est : " + temporaireL.get_NomUtilisateur() 
+								+ ". Veuillez vous connecter à nouveau.\n\n");
+			break;
+			
+		case 3:
+			Administrateur temporaireA = new Administrateur(nom,prenom,mdp);
+			_administrateurs.add(temporaireA);
+			System.out.print("\n\nBienvenue " + nom + prenom
+								+ " ! Vôtre nom d'utilisateur est : " + temporaireA.get_NomUtilisateur() 
+								+ ". Veuillez vous connecter à nouveau.\n\n");
+			break;
+			
+		}
+	}
+	
+	
     @SuppressWarnings({ "unlikely-arg-type", "unchecked" })
 	public static void listeCommande(Scanner key) {
     	if (_connecter != null) {
@@ -177,6 +253,8 @@ public class Essai_Brut_1 {
 		} 
     }
 	
+    
+    
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -218,7 +296,7 @@ public class Essai_Brut_1 {
 				
 			case 2:
 				if (_connecter == null) {
-					
+					inscription(keyboard,1);
 				} else {
 					System.out.print("\n\nAu revoir "+ _connecter.get_NomUtilisateur() +" !\n\n");
 					_connecter = null;
