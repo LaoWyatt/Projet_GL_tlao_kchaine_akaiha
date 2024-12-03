@@ -9,7 +9,7 @@ public class Client extends Compte {
 	private String _prenom;
 	private String _code_postale;
 	private String _adresse;
-	static private int _conteur_cl = 0;
+	static private int _conteur_cl = 1;
 	
 	
 	//----------CONSTRUCTEURS----------//
