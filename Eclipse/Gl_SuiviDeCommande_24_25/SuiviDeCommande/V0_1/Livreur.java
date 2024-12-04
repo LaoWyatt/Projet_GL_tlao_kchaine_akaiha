@@ -8,7 +8,7 @@ public class Livreur extends Compte {
     static private int _conteur_liv = 1;
 
     Livreur(String nom, String prenom, boolean dispo, String motDePasse){
-    	super((nom + prenom + _conteur_liv), motDePasse);
+    	super((nom + prenom + _conteur_liv), motDePasse,2);
 
         boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty();
 

@@ -2,20 +2,24 @@ package V0_1;
 
 public class Compte{
 	private String _nomUtilisateur;
-	private int _graine;
+	private int _graine, _type;
 	private String _motDePasse;
 	
 	
-	Compte(String nouvNU, String nouvMDP){
+	Compte(String nouvNU, String nouvMDP, int type){
 	set_NomUtilisateur(nouvNU);
 		_graine = (int)(Math.random() * 101);
 		setMotDePasse(nouvMDP);
-	
+		_type = type;
 	}
 	
 	
 	public String get_NomUtilisateur() {
 		return _nomUtilisateur;
+	}
+	
+	public int get_Type() {
+		return _type;
 	}
 	
 	protected void set_NomUtilisateur(String nouvNU) {

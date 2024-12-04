@@ -85,10 +85,12 @@ public class Essai_Brut_1 {
 	
 	public static void afficherCommandes(ArrayList<Commande> toDisplay) {
 		System.out.println("\n\nID Commande\tID Client\tID Livreur\tDate");
-		
-		for (Commande c: toDisplay) {
-			System.out.println(c.getID_Commande() + "\t" + c.getID_Client() + "\t" + c.getID_Livreur() + "\t" + c.getDate());
+		if (toDisplay != null) {
+			for (Commande c: toDisplay) {
+				System.out.println(c.getID_Commande() + "\t\t" + c.getID_Client() + "\t\t" + c.getID_Livreur() + "\t\t" + c.getDate());
+			}
 		}
+		
 		
 		System.out.println("\n--------------------------");
 		
@@ -101,8 +103,10 @@ public class Essai_Brut_1 {
 			num_liv++;
 		}
 		
+
 		if (_livreurs.get(num_liv).getDispo()) {
 			Commande newCommande =  new Commande(((Client) _connecter).getID_Client(), _livreurs.get(num_liv).getID_Livreur());
+
 			_commandes.ajoutCommande(newCommande);
 		}
 		else {
@@ -217,35 +221,34 @@ public class Essai_Brut_1 {
 	}
 	
 	
-    @SuppressWarnings({ "unlikely-arg-type", "unchecked" })
+    @SuppressWarnings({ "unchecked" })
 	public static void listeCommande(Scanner key) {
     	if (_connecter != null) {
 			
 			ArrayList<Commande> commandesActuelle = null;
 			boolean gestion = false;
 			
-			if (_connecter.equals(_clients.getClass())) {
+			if (_connecter.get_Type() == 1) {
 				commandesActuelle = _commandes.getClientCommande((((Client) _connecter).getID_Client()));
 				
-			} else if (_connecter.equals(_livreurs.getClass())) {
+			} else if (_connecter.get_Type() == 2) {
 				commandesActuelle = _commandes.getLivreurCommande((((Livreur) _connecter).getID_Livreur()));
 				gestion = true;
 				
-			} else if (_connecter.equals(_administrateurs.getClass())) {
+			} else if (_connecter.get_Type() == 3) {
 				commandesActuelle = _commandes.getCommandes();
 				gestion = true;
 			}
 			
 			afficherCommandes(commandesActuelle);
-			
+			int decision = -1;
 			if (gestion) {
-				int decision = -1;
 				
-				while (decision != -1) {
+				
+				while (decision != 0) {
 						
 					System.out.print(">> Opération (0 pour sortir) <<\n\n");
 					System.out.print("1> Modifier statut d'une commande\n");
-					System.out.print("2> ...\n\n");
 					
 					System.out.print("Opération : ");
 					decision = key.nextInt();
@@ -265,6 +268,25 @@ public class Essai_Brut_1 {
 							System.out.print("\n\n");
 					}
 				}
+			} else {
+				
+				while (decision != 0) {
+						
+					System.out.print(">> Opération (0 pour sortir) <<\n\n");
+					System.out.print("1> Commander\n\n");
+					
+					System.out.print("Opération : ");
+					decision = key.nextInt();
+					
+					switch(decision) {
+						case 1:
+							System.out.print("\n\nCommandé !");
+							creerCommande();
+							break;
+						default:
+							System.out.print("\n\n");
+					}
+				}
 			}
 		} 
     }
@@ -275,7 +297,8 @@ public class Essai_Brut_1 {
 		
 		int decision = -1;
 		_administrateurs.add(new Administrateur("Ultimate","Admin","HelloWorld"));
-		
+		_livreurs.add(new Livreur("Ultimate","Livreur",true,"DaFloof"));
+		_clients.add(new Client("a","a","1","a","a"));
 		
 		while (decision != 0){
 			System.out.print("----{ Suivie de commande 1 }----\n\n");
