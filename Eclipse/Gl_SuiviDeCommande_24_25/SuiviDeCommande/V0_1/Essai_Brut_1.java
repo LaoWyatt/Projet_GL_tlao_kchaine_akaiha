@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Console;
 
+
+
 public class Essai_Brut_1 {
 	
 	private static Compte _connecter = null;
@@ -306,7 +308,6 @@ public class Essai_Brut_1 {
 				
 			default:
 				System.out.print("Hello World !\n\n");
-			
 			}
 		
 		}
