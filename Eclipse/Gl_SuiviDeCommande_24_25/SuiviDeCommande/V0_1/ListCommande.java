@@ -3,21 +3,14 @@ package V0_1;
 import java.util.ArrayList;
 
 public class ListCommande {
-	
-	//----------ATTRIBUTS D'INSTANCE----------//
 
     private ArrayList<Commande> _listeCommandes = new ArrayList<Commande>();
-
-    //----------CONSTRUCTEURS----------//
 
     ListCommande(){
 
         // constructeur
 
     }
-
-
-    //----------MÉTHODES----------//
 
     public Commande getCommande(int num_com) {
     	return _listeCommandes.get(num_com);

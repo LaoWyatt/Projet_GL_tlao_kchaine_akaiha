@@ -2,17 +2,12 @@ package V0_1;
 
 public class Client extends Compte {
 	
-	//----------ATTRIBUTS D'INSTANCE----------//
-	
 	private int _id_client;
 	private String _nom;
 	private String _prenom;
 	private String _code_postale;
 	private String _adresse;
 	static private int _conteur_cl = 1;
-	
-	
-	//----------CONSTRUCTEURS----------//
 	
 	Client(String nom, String prenom, String cp, String adresse, String motDePasse){
 		super((nom + prenom + _conteur_cl), motDePasse);
@@ -30,9 +25,6 @@ public class Client extends Compte {
 			
 		}
 	}
-	
-	
-	//----------MÉTHODES----------//
 	
 	protected void setID_Client(int id) {
 		_id_client = id;

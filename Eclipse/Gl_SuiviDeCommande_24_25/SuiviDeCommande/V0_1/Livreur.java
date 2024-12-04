@@ -1,16 +1,11 @@
 package V0_1;
 
 public class Livreur extends Compte {
-	
-	//----------ATTRIBUTS D'INSTANCE----------//
 
     private int _id_livreur;
     private String _nom, _prenom;
     private boolean _disponibilite;
     static private int _conteur_liv = 1;
-
-
-    //----------CONSTRUCTEURS----------//
 
     Livreur(String nom, String prenom, boolean dispo, String motDePasse){
     	super((nom + prenom + _conteur_liv), motDePasse);
@@ -28,9 +23,6 @@ public class Livreur extends Compte {
         }
 
     }
-
-
-    //----------MÉTHODES----------//
 
     public int getID_Livreur() {
         return _id_livreur;

@@ -8,7 +8,7 @@ public class Essai_Brut_1 {
 	
 	private static Compte _connecter = null;
 	private static ArrayList<Livreur> _livreurs = new ArrayList<>();
-	private static ArrayList<Client> _clients = new ArrayList<>();;
+	private static ArrayList<Client> _clients = new ArrayList<>();
 	private static ArrayList<Administrateur> _administrateurs = new ArrayList<>();
 	private static ListCommande _commandes = new ListCommande();
 	
@@ -57,11 +57,7 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public static void addClient() {
-		//;
-	}
-	
-	public static void addLivreur() {
+	public static void supLivreur() {
 		//;
 	}
 	
@@ -92,7 +88,7 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public static void createCommande(String Contenu, int IdClient, int IdLivreur) {
+	public static void creerCommande(String Contenu, int IdClient, int IdLivreur) {
 		//Commande newCommande =  new Commande();
 	}
 	

@@ -3,15 +3,10 @@ package V0_1;
 import java.time.LocalDate;
 
 public class Commande {
-	
-	//----------ATTRIBUTS D'INSTANCE----------//
 
     private int _id_commande, _id_client, _id_livreur, _status;
     private LocalDate _date = LocalDate.now();
     static private int _conteur_com = 1;
-
-
-    //----------CONSTRUCTEURS----------//
 
     Commande(int id_cl, int id_liv){
             
