@@ -59,14 +59,12 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public boolean supLivreur(int num_liv) {
+	public void supLivreur(int num_liv) {
 		
 		if (num_liv >= 0 && num_liv <= _livreurs.size()) {
 			_livreurs.remove(num_liv);
-        	return true;
         }
         
-    	return false;
 	}
 	
 	public static void setDelivers(ArrayList<Livreur> newDelivers){
@@ -97,18 +95,18 @@ public class Essai_Brut_1 {
 	}
 	
 	public static void creerCommande() {
-		int id_liv = 0;
+		int num_liv = 0;
 		
-		while (id_liv < _livreurs.size() && _livreurs.get(id_liv).getDispo() == false) {
-			id_liv++;
+		while (num_liv < _livreurs.size() && _livreurs.get(num_liv).getDispo() == false) {
+			num_liv++;
 		}
 		
-		if (_livreurs.get(id_liv).getDispo()) {
-			Commande newCommande =  new Commande(((Client) _connecter).getID_Client());
+		if (_livreurs.get(num_liv).getDispo()) {
+			Commande newCommande =  new Commande(((Client) _connecter).getID_Client(), _livreurs.get(num_liv).getID_Livreur());
 			_commandes.ajoutCommande(newCommande);
 		}
 		else {
-			Commande newCommande =  new Commande(((Client) _connecter).getID_Client(), _livreurs.get(id_liv).getID_Livreur());
+			Commande newCommande =  new Commande(((Client) _connecter).getID_Client());
 			_commandes.ajoutCommande(newCommande);
 		}
 		
@@ -271,8 +269,6 @@ public class Essai_Brut_1 {
 		} 
     }
 	
-    
-    
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -294,7 +290,7 @@ public class Essai_Brut_1 {
 				System.out.print("3> Liste de Commande\n");
 			}
 
-			System.out.print("4> ...\n");
+			System.out.print("4> Afficher les clients\n");
 			System.out.print("5> ...\n");
 			System.out.print("6> ...\n\n");
 		
