@@ -57,8 +57,14 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public static void supLivreur() {
-		//;
+	public boolean supLivreur(int num_liv) {
+		
+		if (num_liv >= 0 && num_liv <= _livreurs.size()) {
+			_livreurs.remove(num_liv);
+        	return true;
+        }
+        
+    	return false;
 	}
 	
 	public static void setDelivers(ArrayList<Livreur> newDelivers){
@@ -88,8 +94,22 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public static void creerCommande(String Contenu, int IdClient, int IdLivreur) {
-		//Commande newCommande =  new Commande();
+	public static void creerCommande() {
+		int id_liv = 0;
+		
+		while (id_liv < _livreurs.size() && _livreurs.get(id_liv).getDispo() == false) {
+			id_liv++;
+		}
+		
+		if (_livreurs.get(id_liv).getDispo()) {
+			Commande newCommande =  new Commande(((Client) _connecter).getID_Client());
+			_commandes.ajoutCommande(newCommande);
+		}
+		else {
+			Commande newCommande =  new Commande(((Client) _connecter).getID_Client(), _livreurs.get(id_liv).getID_Livreur());
+			_commandes.ajoutCommande(newCommande);
+		}
+		
 	}
 	
 	public static void gestionDeConnexion(Scanner keyboard) {

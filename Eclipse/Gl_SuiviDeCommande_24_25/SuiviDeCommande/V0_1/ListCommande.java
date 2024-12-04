@@ -44,34 +44,28 @@ public class ListCommande {
     	return listeDuLivreur;
     }
     
-    public boolean ajoutCommande(Commande com) {
+    public void ajoutCommande(Commande com) {
         
         if (com != null) {
         	_listeCommandes.add(com);
-        	return true;
         }
         
-    	return false;
     }
     
-    public boolean modifCommande(Commande com, int num_com) {
+    public void modifCommande(Commande com, int num_com) {
         
         if (com != null && num_com >= 0 && num_com <= _listeCommandes.size()) {
         	_listeCommandes.set(num_com, com);
-        	return true;
         }
         
-    	return false;
     }
     
-    public boolean supCommande(int num_com) {
+    public void supCommande(int num_com) {
         
         if (num_com >= 0 && num_com <= _listeCommandes.size()) {
         	_listeCommandes.remove(num_com);
-        	return true;
         }
         
-    	return false;
     }
 	
 }
