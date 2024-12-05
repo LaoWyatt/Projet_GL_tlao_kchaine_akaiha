@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
+@SuppressWarnings("serial")
 public class GestionUI extends JFrame {
 
 	private JPanel conteneur;

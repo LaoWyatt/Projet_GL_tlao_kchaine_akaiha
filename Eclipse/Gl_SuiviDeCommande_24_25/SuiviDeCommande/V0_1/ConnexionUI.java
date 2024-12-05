@@ -185,7 +185,38 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 			}
 		}
 		
-		
+		if (e.getSource() == _valideInscription) {
+			try {
+				String nom = _textNom.getText();
+				String prenom = _textPrenom.getText();
+				String adresse = _textAdresse.getText();
+				String codePostal = _textCodePostal.getText();
+				String mdp = _textMDP.getText();
+				String confirm = _textComfirmer.getText();
+				
+				boolean verification = !nom.isBlank() &&
+										!prenom.isBlank() &&
+										!adresse.isBlank() &&
+										!codePostal.isBlank() &&
+										!mdp.isBlank() &&
+										!confirm.isBlank();
+				
+				if (verification && mdp.contentEquals(confirm)) {
+					Client temporaire = new Client(nom,prenom,adresse,codePostal,mdp);
+					JOptionPane.showMessageDialog(this,
+							"Bienvenue " + temporaire.get_NomCompte() + temporaire.get_PrenomCompte()
+							+ " ! Vôtre nom d'utilisateur est : " + temporaire.get_NomUtilisateur() 
+							+ ". Veuillez vous connecter à nouveau.",
+							"Inscription Réussi", JOptionPane.ERROR_MESSAGE);
+				} else {
+					throw new Exception();
+				}
+				
+			} catch (Exception error) {
+				JOptionPane.showMessageDialog(this, "Champs vide ou Comfirmation mot de passe érroné", "Inscription", JOptionPane.ERROR_MESSAGE);
+			}
+			
+		}
 		
 		
 		
