@@ -78,11 +78,11 @@ public class GestionUI extends JFrame {
 		}
 	}
 	
-	protected Compte getConnecter() {
+	protected static Compte getConnecter() {
 		return _connecter;
 	}
 	
-	protected void setConnecter(Compte compte) {
+	protected static void setConnecter(Compte compte) {
 		_connecter = compte;
 	}
 	
