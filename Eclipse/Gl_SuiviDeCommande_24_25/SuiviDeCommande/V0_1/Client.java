@@ -10,7 +10,7 @@ public class Client extends Compte {
 	static private int _conteur_cl = 1;
 	
 	Client(String nom, String prenom, String cp, String adresse, String motDePasse){
-		super((nom + prenom + _conteur_cl), motDePasse,1);
+		super(nom, prenom, (nom + prenom + _conteur_cl), motDePasse, 1);
 			
 		boolean verif_vide = !nom.isEmpty() && !prenom.isEmpty() && !cp.isEmpty() && !adresse.isEmpty();
 		
