@@ -14,9 +14,9 @@ public class GestionUI extends JFrame {
 	private JPanel entete;
 	private JLabel titre;
 	private JTabbedPane tabs = new JTabbedPane();
-	private Compte _connecter = null;
+	private static Compte _connecter = null;
 	
-	private ConnexionUI connexionUI;
+	private ConnexionUI _connexionUI;
 	/*
 	private CommandeUI commandeUI;
 	private ClientUI clientUI;
@@ -26,7 +26,7 @@ public class GestionUI extends JFrame {
 	public GestionUI() {
 		super();
 		this.setTitle("Suivi de Commandes");
-		this.setSize(400,600);
+		this.setSize(600,700);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 		conteneur = new JPanel(new BorderLayout());
@@ -39,13 +39,13 @@ public class GestionUI extends JFrame {
 	    titre.setFont(new Font("SansSerif",Font.BOLD,24));
 	    entete.add(titre);
 	    
-	    connexionUI = new ConnexionUI(this);
+	    _connexionUI = new ConnexionUI(this);
 	    /*
 	    commandeUI = new CommandeUI(this);
 	    clientUI = new ClientUI(this);
 	    livreurUI = new LivreurUI(this);	
 	    */	
-	    tabs.addTab("Connexion", connexionUI);
+	    tabs.addTab("Connexion", _connexionUI);
 	    /*
 	    tabs.addTab("Commande", commandeUI);
 	    tabs.addTab("Notation", clientUI);
@@ -80,6 +80,14 @@ public class GestionUI extends JFrame {
 	
 	protected Compte getConnecter() {
 		return _connecter;
+	}
+	
+	protected void setConnecter(Compte compte) {
+		_connecter = compte;
+	}
+	
+	protected ConnexionUI getConnexionUI() {
+		return _connexionUI;
 	}
 	
 	public static void main(String[] args) {
