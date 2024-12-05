@@ -87,7 +87,7 @@ public class test_unitaire{
 		_testListCommande.supCommande(_testCommande.getID_Client());
 		ArrayList<Commande> testList = new ArrayList<Commande>();
 		testList = _testListCommande.getCommandes();
-		assertFalse(testList.contains(_testCommande));
+		assertTrue(testList.isEmpty());
 	}
 
 
