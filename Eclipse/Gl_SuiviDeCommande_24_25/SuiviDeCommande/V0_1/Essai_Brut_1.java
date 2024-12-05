@@ -61,8 +61,8 @@ public class Essai_Brut_1 {
 	
 	public void supLivreur(int num_liv) {
 		
-		if (num_liv >= 0 && num_liv <= _livreurs.size()) {
-			_livreurs.remove(num_liv);
+		if (num_liv >= 1 && num_liv <= _livreurs.size()+1) {
+			_livreurs.remove(num_liv-1);
         }
         
 	}
@@ -116,21 +116,19 @@ public class Essai_Brut_1 {
 		
 	}
 	
-	public static void gestionDeConnexion(Scanner keyboard) {
+	public static void gestionDeConnexion(Scanner clavier) {
 		if (_connecter == null) {
-			System.out.print(">>> Connexion du compte <<<\n\n");
+			System.out.print("\n>>> Connexion du compte <<<\n\n");
 			System.out.print("Nom utilisateur : ");
 			
-			String nomUtilisateur = keyboard.next();
-			
-			System.out.print("\nMot de passe : ");
+			String nomUtilisateur = clavier.next();
 
 			Console console = System.console();
 			String mdp  = new String(console.readPassword("Mot de passe: "));
 			
-			System.out.print("\n(1) Client / (2) Livreur / (3) administrateur :");
+			System.out.print("\n(1) Client / (2) Livreur / (3) administrateur : ");
 			
-			int type = keyboard.nextInt();
+			int type = clavier.nextInt();
 			
 			connexion(type,nomUtilisateur,mdp);
 			
@@ -145,7 +143,7 @@ public class Essai_Brut_1 {
 		}
 	}
 	
-	public static void inscription(Scanner keyboard, int type) {
+	public static void inscription(Scanner clavier, int type) {
 		
 		Console console = System.console();
 		System.out.print(">> Inscription <<\n\n");
@@ -153,13 +151,13 @@ public class Essai_Brut_1 {
 		String nom = "";
 		while (nom.isBlank()) {
 			System.out.print("\nNom : ");
-			nom = keyboard.next();
+			nom = clavier.next();
 		}
 		
 		String prenom = "";
 		while (prenom.isBlank()) {
 			System.out.print("\nPrénom : ");
-			prenom = keyboard.next();
+			prenom = clavier.next();
 		}
 		
 		String mdp = "";
@@ -178,18 +176,18 @@ public class Essai_Brut_1 {
 			String codePostal = "";
 			while (codePostal.isBlank()) {
 				System.out.print("\nCode postal : ");
-				codePostal = keyboard.next();
+				codePostal = clavier.next();
 			}
 			
 			String adresse = "";
 			while (adresse.isBlank()) {
 				System.out.print("\nAdresse : ");
-				adresse = keyboard.next();
+				adresse = clavier.next();
 			}
 			Client temporaireC = new Client(nom,prenom,codePostal,adresse,mdp);
 			_clients.add(temporaireC);
 			System.out.print("\n\nBienvenue " + temporaireC.getNom_Client() + temporaireC.getPrenom_Client()
-								+ " ! Vôtre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
+								+ " ! Votre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
 								+ ". Veuillez vous connecter à nouveau.\n\n");
 			break;
 			
@@ -197,8 +195,8 @@ public class Essai_Brut_1 {
 			boolean disponibilite = false;
 			int dispo = -1;
 			while (dispo == -1) {
-				System.out.print("\nDisponibilité : ");
-				dispo = keyboard.nextInt();
+				System.out.print("\nDisponibilité (0 : non disponible / 1 : disponible) : ");
+				dispo = clavier.nextInt();
 				disponibilite = (dispo == 1);
 			}
 			
@@ -222,7 +220,7 @@ public class Essai_Brut_1 {
 	
 	
     @SuppressWarnings({ "unchecked" })
-	public static void listeCommande(Scanner key) {
+	public static void listeCommande(Scanner cle) {
     	if (_connecter != null) {
 			
 			ArrayList<Commande> commandesActuelle = null;
@@ -244,22 +242,21 @@ public class Essai_Brut_1 {
 			int decision = -1;
 			if (gestion) {
 				
-				
 				while (decision != 0) {
 						
 					System.out.print(">> Opération (0 pour sortir) <<\n\n");
 					System.out.print("1> Modifier statut d'une commande\n");
 					
 					System.out.print("Opération : ");
-					decision = key.nextInt();
+					decision = cle.nextInt();
 					
 					switch(decision) {
 						case 1:
 							System.out.print("\n\nIddentifiant de la Commande : ");
-							int ID = key.nextInt();
+							int ID = cle.nextInt();
 
 							System.out.print("\n[1]En Préparation, [2] En Livraison, [3] Livré : ");
-							int statut = key.nextInt();
+							int statut = cle.nextInt();
 							
 							Commande temporaire = _commandes.getCommande(ID);
 							temporaire.setStatus(statut);
@@ -268,7 +265,9 @@ public class Essai_Brut_1 {
 							System.out.print("\n\n");
 					}
 				}
-			} else {
+			}
+			
+			else {
 				
 				while (decision != 0) {
 						
@@ -276,7 +275,7 @@ public class Essai_Brut_1 {
 					System.out.print("1> Commander\n\n");
 					
 					System.out.print("Opération : ");
-					decision = key.nextInt();
+					decision = cle.nextInt();
 					
 					switch(decision) {
 						case 1:
@@ -288,11 +287,121 @@ public class Essai_Brut_1 {
 					}
 				}
 			}
+			
 		} 
     }
 	
-
-	public static void main(String[] args) {
+    
+    public static void informationsCompte(Scanner clavier) {
+    	if (_connecter != null) {
+    		System.out.print(">>> Informations du compte <<<\n\n");
+        	
+        	System.out.print("Nom : " + _connecter.get_NomCompte());
+        	
+        	System.out.print("\nPrenom : " + _connecter.get_PrenomCompte());
+        	
+    		System.out.print("\nNom utilisateur : " + _connecter.get_NomUtilisateur());
+    		System.out.print("\nType d'utilisateur : ");
+    		
+    		if (_connecter.get_Type() == 1) {
+    			System.out.print("Client");
+    			System.out.print("\nAdresse : " + ((Client)_connecter).getAdresse());
+    			System.out.print("\nCode postal : " + ((Client)_connecter).getCodePostal());
+    			
+    		}
+    		else if (_connecter.get_Type() == 2) {
+    			System.out.print("Livreur\n");
+    			System.out.print("\nDisponibilité : " + ((Livreur)_connecter).getDispo());
+    			
+    		}
+    		else {
+    			System.out.print("Administrateur\n");
+    			
+    		}
+    		
+    		System.out.print("\nVoulez-vous modifier vos informations ? (0 : quitter / 1 : modifier) : ");
+    		
+    		int rep = clavier.nextInt();
+    		
+    		if (rep == 1) {
+    			Console console = System.console();
+    			
+    			System.out.print("\n\n>>> Modifactions du compte <<<\n\n");
+    			String nom = "";
+    			while (nom.isBlank()) {
+    				System.out.print("\nNom : ");
+    				nom = clavier.next();
+    			}
+    			
+    			String prenom = "";
+    			while (prenom.isBlank()) {
+    				System.out.print("\nPrénom : ");
+    				prenom = clavier.next();
+    			}
+    			
+    			String mdp = "";
+    			while (mdp.isBlank()) {
+    				mdp = new String(console.readPassword("\nMot de passe: "));
+    			}
+    			
+    			String confirmation = "";
+    			while (confirmation.contentEquals(mdp)) {
+    				confirmation = new String(console.readPassword("\nConfirmer mot de passe: "));
+    			}
+    			
+    			switch(_connecter.get_Type()) {
+    			
+    			case 1:
+    				String codePostal = "";
+    				while (codePostal.isBlank()) {
+    					System.out.print("\nCode postal : ");
+    					codePostal = clavier.next();
+    				}
+    				
+    				String adresse = "";
+    				while (adresse.isBlank()) {
+    					System.out.print("\nAdresse : ");
+    					adresse = clavier.next();
+    				}
+    				Client temporaireC = new Client(nom,prenom,codePostal,adresse,mdp);
+    				_clients.set(((Client)_connecter).getID_Client(), temporaireC);
+    				System.out.print("\n\nBienvenue " + temporaireC.getNom_Client() + temporaireC.getPrenom_Client()
+    									+ " ! Votre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
+    									+ ". Veuillez vous connecter à nouveau.\n\n");
+    				break;
+    				
+    			case 2:
+    				boolean disponibilite = false;
+    				int dispo = -1;
+    				while (dispo == -1) {
+    					System.out.print("\nDisponibilité (0 : non disponible / 1 : disponible) : ");
+    					dispo = clavier.nextInt();
+    					disponibilite = (dispo == 1);
+    				}
+    				
+    				Livreur temporaireL = new Livreur(nom,prenom,disponibilite,mdp);
+    				_livreurs.set(((Livreur)_connecter).getID_Livreur(), temporaireL);
+    				System.out.print("\n\nBienvenue " + temporaireL.getNom_Livreur() + temporaireL.getPrenom_Livreur()
+    									+ " ! Vôtre nom d'utilisateur est : " + temporaireL.get_NomUtilisateur() 
+    									+ ". Veuillez vous connecter à nouveau.\n\n");
+    				break;
+    				
+    			case 3:
+    				Administrateur temporaireA = new Administrateur(nom,prenom,mdp);
+    				_administrateurs.set(((Administrateur)_connecter).getID_Admin(), temporaireA);
+    				System.out.print("\n\nBienvenue " + nom + prenom
+    									+ " ! Vôtre nom d'utilisateur est : " + temporaireA.get_NomUtilisateur() 
+    									+ ". Veuillez vous connecter à nouveau.\n\n");
+    				break;
+    				
+    			}
+    		}
+    		
+    	}
+    	
+    }
+    
+    public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		int decision = -1;
@@ -304,36 +413,39 @@ public class Essai_Brut_1 {
 			System.out.print("----{ Suivie de commande 1 }----\n\n");
 			
 			System.out.print("[ Liste de processus ]\n>> Saisisez 0 pour quitter\n\n");
-			System.out.print("1> Connexion\n");
 			
 			if (_connecter == null) {
+				System.out.print("1> Connexion\n");
 				System.out.print("2> Inscription\n");
 			} else {
-				System.out.print("2> Déconnexion\n");
-				System.out.print("3> Liste de Commande\n");
+				System.out.print("3> Liste de commandes\n"); 
+				System.out.print("4> Mes informations\n");
+				System.out.print("5> Déconnexion\n\n");
+				
+				if (_connecter.get_Type() == 2 || _connecter.get_Type() == 3) {
+					System.out.print("6> Liste de clients\n");
+					System.out.print("7> Disponibilité du livreur\n\n");
+				}
+				
 			}
-
-			System.out.print("4> Afficher les clients\n");
-			System.out.print("5> ...\n");
-			System.out.print("6> ...\n\n");
 		
 			System.out.print("Numéro de processus : ");
-			Scanner keyboard = new Scanner(System.in);
-			decision = keyboard.nextInt();
+			Scanner clavier = new Scanner(System.in);
+			decision = clavier.nextInt();
 			
 			switch(decision) {
 			
 			case 0:
-				keyboard.close();
+				clavier.close();
 				break;
 				
 			case 1:
-				gestionDeConnexion(keyboard);
+				gestionDeConnexion(clavier);
 				break;
 				
 			case 2:
 				if (_connecter == null) {
-					inscription(keyboard,1);
+					inscription(clavier,1);
 				} else {
 					System.out.print("\n\nAu revoir "+ _connecter.get_NomUtilisateur() +" !\n\n");
 					_connecter = null;
@@ -342,7 +454,15 @@ public class Essai_Brut_1 {
 				break;
 				
 			case 3:
-				listeCommande(keyboard);
+				listeCommande(clavier);
+				break;
+			
+			case 4:
+				informationsCompte(clavier);
+				break;
+			
+			case 5:
+				clavier.close();
 				break;
 				
 			default:
