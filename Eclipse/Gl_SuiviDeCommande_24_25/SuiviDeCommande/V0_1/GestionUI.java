@@ -14,8 +14,10 @@ public class GestionUI extends JFrame {
 	private JPanel entete;
 	private JLabel titre;
 	private JTabbedPane tabs = new JTabbedPane();
-	/*
+	private Compte _connecter = null;
+	
 	private ConnexionUI connexionUI;
+	/*
 	private CommandeUI commandeUI;
 	private ClientUI clientUI;
 	private LivreurUI livreurUI;
@@ -32,20 +34,22 @@ public class GestionUI extends JFrame {
 		
 		entete = new JPanel();
 	    entete.setBackground(Color.BLUE);
-	    titre = new JLabel("Gestion des études ");
+	    titre = new JLabel("Suivi de Commandes");
 	    titre.setForeground(Color.WHITE);
 	    titre.setFont(new Font("SansSerif",Font.BOLD,24));
 	    entete.add(titre);
 	    
-	    /*
 	    connexionUI = new ConnexionUI(this);
+	    /*
 	    commandeUI = new CommandeUI(this);
-	    clientUI = new NotesUI(this);
-	    resultatUI = new ResultatsUI(this);		
+	    clientUI = new ClientUI(this);
+	    livreurUI = new LivreurUI(this);	
+	    */	
 	    tabs.addTab("Connexion", connexionUI);
+	    /*
 	    tabs.addTab("Commande", commandeUI);
-	    tabs.addTab("Notation", notationUI);
-	    tabs.addTab("Resultats", resultatUI);
+	    tabs.addTab("Notation", clientUI);
+	    tabs.addTab("Resultats", livreurUI);
 	    */
 	    
 	    
@@ -55,5 +59,34 @@ public class GestionUI extends JFrame {
 	    this.setVisible(true);
 	    this.update();
 	}
+	
+	
+	void update() {
+		if (_connecter == null) {
+			tabs.setEnabledAt(1, false);
+			tabs.setEnabledAt(2, false);
+			tabs.setEnabledAt(3, false);
+		} else {
+			tabs.setEnabledAt(1, true);			
+			if (_connecter.get_Type() == 1) {
+				tabs.setEnabledAt(2, false);	
+				tabs.setEnabledAt(3, false);
+			} else {
+				tabs.setEnabledAt(2, true);	
+				tabs.setEnabledAt(3, true);
+			}
+		}
+	}
+	
+	protected Compte getConnecter() {
+		return _connecter;
+	}
+	
+	public static void main(String[] args) {
+		
+		new GestionUI();
+
+	}
+	
 	
 }
