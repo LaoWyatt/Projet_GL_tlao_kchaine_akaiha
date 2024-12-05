@@ -1,8 +1,10 @@
 package V0_1;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeAll;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class test_unitaire{
 	public Compte _testCompte;
@@ -21,6 +23,7 @@ public class test_unitaire{
 		 Compte compteTestLocal = new Compte(nomTest,mdpTest,1);
 		 
 		assertEquals(compteTestLocal.get_NomUtilisateur(), nomTest);
+		assertTrue(compteTestLocal.verificationMotDePasse(mdpTest));
 		/**Faire pour le mdp**/
 		_testCompte = compteTestLocal;
 		
@@ -39,17 +42,21 @@ public class test_unitaire{
 	assertEquals(clientTestLocal.getNom_Client(),nomTest);
 	assertEquals(clientTestLocal.getPrenom_Client(),prenomTest);
 	assertEquals(clientTestLocal.getCodePostal(),cpTest);
-	assertEquals(clientTestLocal.getNom_Client(),nomTest);
+	assertEquals(clientTestLocal.getAdresse(),adresseTest);
+	assertTrue(clientTestLocal.verificationMotDePasse(mdpTest));
+	
+	_testClient = clientTestLocal;
+
 	
 	
 }
 @BeforeAll
 	public void testCreerCommande() {
 	int idClientTest = 1;
-	Commande commandeTest = new Commande(idClientTest);
+	Commande commandeTestLocal = new Commande(idClientTest);
 	
-	assertEquals(commandeTest.getID_Client(), idClientTest);
-	_testCommande = commandeTest;
+	assertEquals(commandeTestLocal.getID_Client(), idClientTest);
+	_testCommande = commandeTestLocal;
 
 }
 
@@ -57,10 +64,15 @@ public class test_unitaire{
 
 @Test
 	public void testGetListCommande() {
-	int idClientTest = 1;
-	Commande commandeTest = new Commande(idClientTest);
+	ListCommande testListCommandeLocal = new ListCommande();
+	testListCommandeLocal.ajoutCommande(_testCommande);
+	ArrayList<Commande> testList = new ArrayList<Commande>();
+	testList = testListCommandeLocal.getCommandes();
 	
-	ListCommande testListCommande = new ListCommande();
+	assertEquals(testList.size(), 1);
+	assertEquals(testList.get(0).getID_Commande(), _testCommande.getID_Commande());
+	
+	
 	
 	
 }
