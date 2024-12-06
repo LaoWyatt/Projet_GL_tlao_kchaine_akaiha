@@ -18,8 +18,8 @@ public class GestionUI extends JFrame {
 	private static Compte _connecter = null;
 	
 	private ConnexionUI _connexionUI;
-	/*
 	private CommandeUI commandeUI;
+	/*
 	private ClientUI clientUI;
 	private LivreurUI livreurUI;
 	*/
@@ -41,14 +41,14 @@ public class GestionUI extends JFrame {
 	    entete.add(titre);
 	    
 	    _connexionUI = new ConnexionUI(this);
-	    /*
 	    commandeUI = new CommandeUI(this);
+	    /*
 	    clientUI = new ClientUI(this);
 	    livreurUI = new LivreurUI(this);	
 	    */	
 	    tabs.addTab("Connexion", _connexionUI);
-	    /*
 	    tabs.addTab("Commande", commandeUI);
+	    /*
 	    tabs.addTab("Notation", clientUI);
 	    tabs.addTab("Resultats", livreurUI);
 	    */
