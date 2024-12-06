@@ -51,6 +51,8 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 	
 	ConnexionUI(GestionUI fenetre) {
 		super(fenetre);
+		_clients.add(new Client("Alpha","Beta","PPT","12345","qwerty"));
+		_livreurs.add(new Livreur("Delta","Thibault",true,"qwerty"));
 		
 		_corps.setLayout(new BoxLayout(_corps, BoxLayout.PAGE_AXIS));
 	
