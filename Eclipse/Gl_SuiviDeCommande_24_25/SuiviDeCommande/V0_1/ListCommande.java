@@ -12,8 +12,16 @@ public class ListCommande {
 
     }
 
-    public Commande getCommande(int num_com) {
-    	return _listeCommandes.get(num_com);
+    public Commande getCommande(int ID_com) {
+    	int i = 0;
+    	Commande seek = null;
+    	
+    	while (i < _listeCommandes.size() && seek == null) {
+    		if (ID_com == _listeCommandes.get(i).getID_Commande()) seek = _listeCommandes.get(i);
+    		i++;
+    	}
+    	
+    	return seek;
     }
     
     protected ArrayList getCommandes() {
