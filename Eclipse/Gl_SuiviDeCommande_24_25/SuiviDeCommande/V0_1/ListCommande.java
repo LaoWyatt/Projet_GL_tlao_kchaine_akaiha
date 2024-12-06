@@ -16,7 +16,7 @@ public class ListCommande {
     	return _listeCommandes.get(num_com);
     }
     
-    protected ArrayList getCommandes() {
+    protected ArrayList<Commande> getCommandes() {
     	return _listeCommandes;
     }
     
@@ -54,7 +54,7 @@ public class ListCommande {
     
     public void modifCommande(Commande com, int num_com) {
         
-        if (com != null && num_com >= 0 && num_com <= _listeCommandes.size()) {
+        if (com != null && num_com >= 1 && num_com < _listeCommandes.size()) {
         	_listeCommandes.set(num_com, com);
         }
         
@@ -62,7 +62,7 @@ public class ListCommande {
     
     public void supCommande(int num_com) {
         
-        if (num_com >= 0 && num_com <= _listeCommandes.size()) {
+        if (num_com >= 1 && num_com < _listeCommandes.size()) {
         	_listeCommandes.remove(num_com);
         }
         
