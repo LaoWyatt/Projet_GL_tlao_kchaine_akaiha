@@ -19,11 +19,16 @@ public class test_unitaire{
 	
 @BeforeAll
 	public static void testCreerCompte() {
+		String prenomTest = "Toto";
 		 String nomTest = "Test";
+		 String nomUTest = "Tata";
 		 String mdpTest = "123";
-		 Compte compteTestLocal = new Compte(nomTest,mdpTest,1);
+		 Compte compteTestLocal = new Compte(nomTest,prenomTest,nomUTest,mdpTest,1);
 		 
-		assertEquals(compteTestLocal.get_NomUtilisateur(), nomTest);
+		 
+		assertEquals(compteTestLocal.get_NomCompte(), nomTest);
+		assertEquals(compteTestLocal.get_PrenomCompte(), prenomTest);
+		assertEquals(compteTestLocal.get_NomUtilisateur(), nomUTest);
 		assertTrue(compteTestLocal.verificationMotDePasse(mdpTest));
 		/**Faire pour le mdp**/
 		_testCompte = compteTestLocal;
@@ -89,7 +94,19 @@ public class test_unitaire{
 		testList = _testListCommande.getCommandes();
 		assertTrue(testList.isEmpty());
 	}
-
+	
+@Test
+public void testModifCommande() {
+	int idClientTest = 100;
+	Commande commandeTestLocal = new Commande(idClientTest);
+	_testListCommande.modifCommande(commandeTestLocal, 0);
+	ArrayList<Commande> testList = new ArrayList<Commande>();
+	testList = _testListCommande.getCommandes();
+	assertEquals(testList.get(0).getID_Client(), idClientTest );
+	
+	
+	
+}
 
 
 
