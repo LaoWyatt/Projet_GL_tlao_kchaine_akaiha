@@ -12,16 +12,16 @@ public class ListCommande {
 
     }
 
-    public Commande getCommande(int ID_com) {
+    public Commande getCommande(int id_com) {
     	int i = 0;
-    	Commande seek = null;
+    	Commande com = null;
     	
-    	while (i < _listeCommandes.size() && seek == null) {
-    		if (ID_com == _listeCommandes.get(i).getID_Commande()) seek = _listeCommandes.get(i);
+    	while (i < _listeCommandes.size() && com == null) {
+    		if (id_com == _listeCommandes.get(i).getID_Commande()) com = _listeCommandes.get(i);
     		i++;
     	}
     	
-    	return seek;
+    	return com;
     }
     
     protected ArrayList<Commande> getCommandes() {
@@ -60,19 +60,29 @@ public class ListCommande {
         
     }
     
-    public void modifCommande(Commande com, int num_com) {
-        
-        if (com != null && num_com >= 1 && num_com < _listeCommandes.size()) {
-        	_listeCommandes.set(num_com, com);
-        }
-        
+    public void modifCommande(Commande com, int id_com) {
+    	int i = 0;
+    	
+    	if (com != null) {
+    		while (i < _listeCommandes.size()) {
+	    		if (id_com == _listeCommandes.get(i).getID_Commande()) {
+	    			_listeCommandes.set(i, com);
+	    		}
+	    		i++;
+	    	}
+    	}
+    	
     }
     
-    public void supCommande(int num_com) {
-        
-        if (num_com >= 1 && num_com < _listeCommandes.size()) {
-        	_listeCommandes.remove(num_com);
-        }
+    public void supCommande(int id_com) {
+        int i = 0;
+    		
+        while (i < _listeCommandes.size()) {
+    		if (id_com == _listeCommandes.get(i).getID_Commande()) {
+    			_listeCommandes.remove(i);
+    		}
+    		i++;
+    	}
         
     }
 	
