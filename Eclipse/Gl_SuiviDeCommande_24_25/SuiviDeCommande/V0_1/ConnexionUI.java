@@ -2,16 +2,13 @@ package V0_1;
 
 import java.util.ArrayList;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
@@ -152,6 +149,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 							GestionUI.setConnecter(trouvee);
 							JOptionPane.showMessageDialog(this, "Bienvenue " + trouvee.get_NomUtilisateur() + " !", "Connexion", JOptionPane.PLAIN_MESSAGE);
 							_textMotDePasse.setText("");
+							_fenetre.update();
 						}
 					}
 					
