@@ -16,6 +16,9 @@ import javax.swing.JTextField;
 
 public class CommandeUI extends PanneauUI implements ActionListener{
 	
+	private static ListCommande _commandes = new ListCommande();
+	private static int _statut = 1;
+	
 	private JButton _buttonRefresh;
 	
 	private JTextArea _taAffichage;
@@ -47,6 +50,7 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 		_textIdCommande.setEditable(false);
 		
 		_buttonStatut = new JButton("...");
+		_buttonStatut.disable();
 		_buttonStatut.addActionListener(this);
 		
 		_valideCommande = new JButton("...");
@@ -66,10 +70,87 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
+		if (e.getSource() == _buttonRefresh) {
+			Compte actuelle = GestionUI.getConnecter();
+			
+			if (actuelle != null) {
+				ArrayList<Commande> commandesCompte = null;
+				switch(actuelle.get_Type()) {
+					case 1:
+
+						_buttonStatut.setText("...");
+						_buttonStatut.disable();
+						_textIdCommande.setEditable(false);
+						_labelIdCommande.setText("...");
+						_valideCommande.setText("Commander");
+						commandesCompte = _commandes.getClientCommande(((Client)actuelle).getID_Client());
+						break;
+					
+					case 2:
+						_buttonStatut.setText("En préparation");
+						_statut = 1;
+						_buttonStatut.enable();
+						_textIdCommande.setEditable(true);
+						_labelIdCommande.setText("ID Commande : ");
+						_valideCommande.enable();
+						_valideCommande.setText("Mettre à jour");
+						commandesCompte = _commandes.getClientCommande(((Livreur)actuelle).getID_Livreur());
+						break;
+						
+					case 3:
+						_buttonStatut.setText("En préparation");
+						_statut = 1;
+						_buttonStatut.enable();
+						_textIdCommande.setEditable(true);
+						_labelIdCommande.setText("ID Commande : ");
+						_valideCommande.enable();
+						_valideCommande.setText("Mettre à jour");
+						commandesCompte = _commandes.getCommandes();
+						break;
+					}
+				
+				if (!commandesCompte.isEmpty()) {
+					_taAffichage.setText(listCommandeToString(commandesCompte));
+				} else {
+					_taAffichage.setText("Vide");
+				}
+				
+			}
+			
+		}
 		
 	}
 
+	private String listCommandeToString(ArrayList<Commande> toDisplay) {
+		String display = "ID Commandes\tID Client\tID Livreur\tDate\t\tÉtat\n";
+		
+		for (Commande c: toDisplay) {
+			display += c.getID_Commande() + "\t\t" + c.getID_Client() + "\t\t" + c.getID_Livreur() + "\t\t" + c.getDate() + "\t\t" + intStatutToString(c.getStatus()) + "\n";
+		}
+		
+		return display;
+	}
+	
+	private String intStatutToString(int statut) {
+		String str = null;
+		switch(statut) {
+		case 1:
+			str = "En préparation";
+			break;
+			
+		case 2:
+			str = "En livraison";
+			break;
+			
+		case 3:
+			str = "Commande livrée";
+			break;
+		}
+		return str;
+	}
+	
+	
 	@Override
 	void update() {
 		// TODO Auto-generated method stub
