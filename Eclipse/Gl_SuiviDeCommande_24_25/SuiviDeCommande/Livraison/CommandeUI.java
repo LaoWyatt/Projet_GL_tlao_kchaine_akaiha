@@ -214,7 +214,7 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 					_labelIdCommande.setText("ID Commande : ");
 					_valideCommande.enable();
 					_valideCommande.setText("Mettre à jour");
-					commandesCompte = _commandes.getClientCommande(((Livreur)actuelle).getID_Livreur());
+					commandesCompte = _commandes.getLivreurCommande(((Livreur)actuelle).getID_Livreur());
 					break;
 					
 				case 3:
