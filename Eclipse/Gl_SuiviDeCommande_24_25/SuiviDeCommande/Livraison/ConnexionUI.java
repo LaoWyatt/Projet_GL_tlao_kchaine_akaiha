@@ -1,4 +1,4 @@
-package V0_1;
+package Livraison;
 
 import java.util.ArrayList;
 import java.awt.BorderLayout;
@@ -150,7 +150,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 					} else {
 						if (trouvee.verificationMotDePasse(password)) {
 							GestionUI.setConnecter(trouvee);
-							JOptionPane.showMessageDialog(this, "Bienvenue " + trouvee.get_NomUtilisateur() + " !", "Connexion", JOptionPane.PLAIN_MESSAGE);
+							JOptionPane.showMessageDialog(this, "Bienvenue " + trouvee.getNom_Utilisateur() + " !", "Connexion", JOptionPane.PLAIN_MESSAGE);
 							
 							if (trouvee.get_Type() == 1) {
 								notification();
@@ -209,8 +209,8 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 						Client temporaire = new Client(nom,prenom,adresse,codePostal,mdp);
 						_clients.add(temporaire);
 						JOptionPane.showMessageDialog(this,
-								"Bienvenue " + temporaire.get_NomCompte() + " " + temporaire.get_PrenomCompte()
-								+ " ! Vôtre nom d'utilisateur est : " + temporaire.get_NomUtilisateur() 
+								"Bienvenue " + temporaire.getNom_Compte() + " " + temporaire.getPrenom_Compte()
+								+ " ! Vôtre nom d'utilisateur est : " + temporaire.getNom_Utilisateur() 
 								+ " Votre mot de passe est : " + mdp + ". Veuillez vous connecter à nouveau.",
 								"Inscription Réussi", JOptionPane.PLAIN_MESSAGE);
 						viderInscription();
@@ -245,7 +245,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 			case 1:
 				if (_clients.size() != 0) {
 					while (i < _clients.size() && result == null) {
-						if (_clients.get(i).get_NomUtilisateur().contentEquals(Login)) {
+						if (_clients.get(i).getNom_Utilisateur().contentEquals(Login)) {
 							result = _clients.get(i);
 						}
 						i++;
@@ -257,7 +257,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 			case 2:
 				if (_livreurs.size() != 0) {
 					while (i < _livreurs.size() && result == null) {
-						if (_livreurs.get(i).get_NomUtilisateur().contentEquals(Login)) {
+						if (_livreurs.get(i).getNom_Utilisateur().contentEquals(Login)) {
 							result = _livreurs.get(i);
 						}
 						i++;
@@ -268,7 +268,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 			case 3:
 				if (_administrateurs.size() != 0) {
 					while (i < _administrateurs.size() && result == null) {
-						if (_administrateurs.get(i).get_NomUtilisateur().contentEquals(Login)) {
+						if (_administrateurs.get(i).getNom_Utilisateur().contentEquals(Login)) {
 							result = _administrateurs.get(i);
 						}
 						i++;

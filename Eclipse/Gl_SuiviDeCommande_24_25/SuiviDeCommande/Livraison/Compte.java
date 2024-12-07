@@ -1,8 +1,8 @@
-package V0_1;
+package Livraison;
 
 public class Compte {
-	private String _nom;
-	private String _prenom;
+	private String _nom_compte;
+	private String _prenom_compte;
 	private String _nomUtilisateur;
 	private int _graine, _type;
 	private String _motDePasse;
@@ -10,35 +10,35 @@ public class Compte {
 	// type d'un compte utilisateur = Client, Livreur ou Administrateur.
 	Compte(String nouvNom, String nouvPrenom, String nouvNU, String nouvMDP, int type){
 		
-		set_NomCompte(nouvNom);
-		set_PrenomCompte(nouvPrenom);
-		set_NomUtilisateur(nouvNU);
+		setNom_Compte(nouvNom);
+		setPrenom_Compte(nouvPrenom);
+		setNom_Utilisateur(nouvNU);
 		_graine = (int)(Math.random() * 101);
 		setMotDePasse(nouvMDP);
 		_type = type;
 	}
 	
-	public String get_NomCompte() {
-		return _nom;
+	public String getNom_Compte() {
+		return _nom_compte;
 	}
 	
-	protected void set_NomCompte(String nouvNU) {
-		_nom = nouvNU;
+	protected void setNom_Compte(String nouvNU) {
+		_nom_compte = nouvNU;
 	}
 	
-	public String get_PrenomCompte() {
-		return _prenom;
+	public String getPrenom_Compte() {
+		return _prenom_compte;
 	}
 	
-	protected void set_PrenomCompte(String nouvNU) {
-		_prenom = nouvNU;
+	protected void setPrenom_Compte(String nouvNU) {
+		_prenom_compte = nouvNU;
 	}
 	
-	public String get_NomUtilisateur() {
+	public String getNom_Utilisateur() {
 		return _nomUtilisateur;
 	}
 	
-	protected void set_NomUtilisateur(String nouvNU) {
+	protected void setNom_Utilisateur(String nouvNU) {
 		_nomUtilisateur = nouvNU;
 	}
 	

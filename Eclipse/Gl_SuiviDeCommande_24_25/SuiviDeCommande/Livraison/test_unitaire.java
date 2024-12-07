@@ -1,4 +1,4 @@
-package V0_1;
+package Livraison;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.ArrayList;
 
@@ -26,9 +26,9 @@ public class test_unitaire{
 		 Compte compteTestLocal = new Compte(nomTest,prenomTest,nomUTest,mdpTest,1);
 		 
 		 
-		assertEquals(compteTestLocal.get_NomCompte(), nomTest);
-		assertEquals(compteTestLocal.get_PrenomCompte(), prenomTest);
-		assertEquals(compteTestLocal.get_NomUtilisateur(), nomUTest);
+		assertEquals(compteTestLocal.getNom_Compte(), nomTest);
+		assertEquals(compteTestLocal.getPrenom_Compte(), prenomTest);
+		assertEquals(compteTestLocal.getNom_Utilisateur(), nomUTest);
 		assertTrue(compteTestLocal.verificationMotDePasse(mdpTest));
 		/**Faire pour le mdp**/
 		_testCompte = compteTestLocal;
@@ -79,7 +79,7 @@ public class test_unitaire{
 	public void testAddListCommande() {
 	_testListCommande.ajoutCommande(_testCommande);
 	ArrayList<Commande> testList = new ArrayList<Commande>();
-	testList = _testListCommande.getCommandes();
+	testList = _testListCommande.getListeCommandes();
 	
 	assertEquals(testList.size(), 1);
 	assertEquals(testList.get(0).getID_Commande(), _testCommande.getID_Commande());
@@ -91,7 +91,7 @@ public class test_unitaire{
 	public void testSupListCommande() {
 		_testListCommande.supCommande(0);
 		ArrayList<Commande> testList = new ArrayList<Commande>();
-		testList = _testListCommande.getCommandes();
+		testList = _testListCommande.getListeCommandes();
 		assertTrue(testList.isEmpty());
 	}
 	
@@ -101,7 +101,7 @@ public void testModifCommande() {
 	Commande commandeTestLocal = new Commande(idClientTest);
 	_testListCommande.modifCommande(commandeTestLocal, 0);
 	ArrayList<Commande> testList = new ArrayList<Commande>();
-	testList = _testListCommande.getCommandes();
+	testList = _testListCommande.getListeCommandes();
 	assertEquals(testList.get(0).getID_Client(), idClientTest );
 	
 	

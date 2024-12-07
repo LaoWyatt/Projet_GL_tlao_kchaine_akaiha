@@ -1,9 +1,9 @@
-package V0_1;
+package Livraison;
 
 public class Livreur extends Compte {
 
     private int _id_livreur;
-    private String _nom, _prenom;
+    private String _nom_livreur, _prenom_livreur;
     private boolean _disponibilite;
     static private int _conteur_liv = 1;
 
@@ -33,26 +33,26 @@ public class Livreur extends Compte {
     }
 
     public String getNom_Livreur() {
-        return _nom;
+        return _nom_livreur;
     }
     
     protected void setNom_Livreur(String n){
-        _nom = n;
+        _nom_livreur = n;
     }
     
     public String getPrenom_Livreur() {
-        return _prenom;
+        return _prenom_livreur;
     }
     
     protected void setPrenom_Livreur(String p){
-        _prenom = p;
+        _prenom_livreur = p;
     }
     
     public boolean getDispo() {
         return _disponibilite;
     }
     
-    public void setDispo(boolean dispo){
+    protected void setDispo(boolean dispo){
         _disponibilite = dispo;
     }
 	

@@ -1,10 +1,10 @@
-package V0_1;
+package Livraison;
 
 public class Administrateur extends Compte {
 
 	private int _id_admin;
-	private String _nom;
-	private String _prenom;
+	private String _nom_admin;
+	private String _prenom_admin;
 	static private int _compteur_admin = 1;
 	
 	Administrateur(String nom, String prenom, String motDePasse) {
@@ -31,19 +31,19 @@ public class Administrateur extends Compte {
 	}
 	
 	protected void setNom_Admin(String n) {
-		_nom = n;
+		_nom_admin = n;
 	}
 	
 	public String getNom_Admin() {
-		return _nom;
+		return _nom_admin;
 	}
 	
 	protected void setPrenom_Admin(String p) {
-		_prenom = p;
+		_prenom_admin = p;
 	}
 	
 	public String getPrenom_Admin() {
-		return _prenom;
+		return _prenom_admin;
 	}
 	
 }

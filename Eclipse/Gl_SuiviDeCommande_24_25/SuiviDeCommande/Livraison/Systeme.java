@@ -1,20 +1,19 @@
-package V0_1;
+package Livraison;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.Console;
 
-
-
-public class Essai_Brut_1 {
+public class Systeme {
 	
 	private static Compte _connecter = null;
-	private static ArrayList<Livreur> _livreurs = new ArrayList<>();
 	private static ArrayList<Client> _clients = new ArrayList<>();
+	private static ArrayList<Livreur> _livreurs = new ArrayList<>();
 	private static ArrayList<Administrateur> _administrateurs = new ArrayList<>();
 	private static ListCommande _commandes = new ListCommande();
 	
-	public static void setClients(ArrayList<Client> nouvClients){
+	
+	protected static void setClients(ArrayList<Client> nouvClients){
 		_clients = nouvClients;
 	}
 
@@ -22,23 +21,32 @@ public class Essai_Brut_1 {
 		return _clients;
 	}
 	
-	public void modifClient(int num_cl, Client cl) {
+	public void modifClient(int id_cl, Client cl) {
+		int i = 0;
 		
-		if (num_cl >= 1 && num_cl < _clients.size()) {
-			_clients.set(num_cl, cl);
-        }
+        while (i < _clients.size()) {
+    		if (id_cl == _clients.get(i).getID_Client()) {
+    			_clients.set(i, cl);
+    		}
+    		i++;
+    	}
 		
 	}
 	
-	public void supClient(int num_cl) {
+	public void supClient(int id_cl) {
+		int i = 0;
 		
-		if (num_cl >= 1 && num_cl < _clients.size()) {
-			_clients.remove(num_cl);
-        }
+        while (i < _clients.size()) {
+    		if (id_cl == _clients.get(i).getID_Client()) {
+    			_clients.remove(i);
+    		}
+    		i++;
+    	}
         
 	}
 	
-	public static void setLivreurs(ArrayList<Livreur> nouvLivreurs){
+	
+	protected static void setLivreurs(ArrayList<Livreur> nouvLivreurs){
 		_livreurs = nouvLivreurs;
 	}
 
@@ -50,21 +58,30 @@ public class Essai_Brut_1 {
 			_livreurs.add(liv);
 	}
 	
-	public void modifLivreur(int num_liv, Livreur liv) {
+	public void modifLivreur(int id_liv, Livreur liv) {
+		int i = 0;
 		
-		if (num_liv >= 1 && num_liv < _livreurs.size()) {
-			_livreurs.set(num_liv, liv);
-        }
+        while (i < _livreurs.size()) {
+    		if (id_liv == _livreurs.get(i).getID_Livreur()) {
+    			_livreurs.set(i, liv);
+    		}
+    		i++;
+    	}
         
 	}
 	
-	public void supLivreur(int num_liv) {
+	public void supLivreur(int id_liv) {
+		int i = 0;
 		
-		if (num_liv >= 1 && num_liv < _livreurs.size()) {
-			_livreurs.remove(num_liv);
-        }
+        while (i < _livreurs.size()) {
+    		if (id_liv == _livreurs.get(i).getID_Livreur()) {
+    			_livreurs.remove(i);
+    		}
+    		i++;
+    	}
         
 	}
+	
 	
 	public static void creerCommande() {
 		int num_liv = 0;
@@ -111,7 +128,7 @@ public class Essai_Brut_1 {
 				gestion = true;
 				
 			} else if (_connecter.get_Type() == 3) {
-				commandesActuelle = _commandes.getCommandes();
+				commandesActuelle = _commandes.getListeCommandes();
 				gestion = true;
 			}
 			
@@ -171,6 +188,7 @@ public class Essai_Brut_1 {
     	
     }
 	
+	
 	public static void connexion(int type, String nomUtilisateur, String mdp) {
 		int i = 0;
 		
@@ -179,7 +197,7 @@ public class Essai_Brut_1 {
 			case 1:
 				if (!_clients.isEmpty()) {
 					while (i < _clients.size() && _connecter == null) {
-						if (_clients.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+						if (_clients.get(i).getNom_Utilisateur().contentEquals(nomUtilisateur)) {
 							_connecter = _clients.get(i);
 						}
 						i++;
@@ -190,8 +208,8 @@ public class Essai_Brut_1 {
 			case 2:
 				if (!_livreurs.isEmpty()) {
 					
-					while (i < _livreurs.size() && _livreurs == null) {
-						if (_livreurs.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+					while (i < _livreurs.size() && _connecter == null) {
+						if (_livreurs.get(i).getNom_Utilisateur().contentEquals(nomUtilisateur)) {
 							_connecter = _livreurs.get(i);
 						}
 						i++;
@@ -202,8 +220,8 @@ public class Essai_Brut_1 {
 			case 3:
 				if (!_administrateurs.isEmpty()) {
 					
-					while (i < _administrateurs.size() && _administrateurs == null) {
-						if (_administrateurs.get(i).get_NomUtilisateur().contentEquals(nomUtilisateur)) {
+					while (i < _administrateurs.size() && _connecter == null) {
+						if (_administrateurs.get(i).getNom_Utilisateur().contentEquals(nomUtilisateur)) {
 							_connecter = _administrateurs.get(i);
 						}
 						i++;
@@ -235,10 +253,10 @@ public class Essai_Brut_1 {
 			if (_connecter == null) {
 				System.out.print("\nNom d'utilisateur, mot de passe ou statut incorrect!\n\n\n");
 			} else {
-				System.out.print("\nBienvenue "+ _connecter.get_NomUtilisateur() +"\n\n");
+				System.out.print("\nBienvenue "+ _connecter.getNom_Utilisateur() +"\n\n");
 			}
 		} else {
-			System.out.print("\nConnexion active en tant que "+ _connecter.get_NomUtilisateur() +" !\n");
+			System.out.print("\nConnexion active en tant que "+ _connecter.getNom_Utilisateur() +" !\n");
 		}
 	}
 	
@@ -286,7 +304,7 @@ public class Essai_Brut_1 {
 			Client temporaireC = new Client(nom,prenom,codePostal,adresse,mdp);
 			_clients.add(temporaireC);
 			System.out.print("\n\nBienvenue " + temporaireC.getNom_Client() + temporaireC.getPrenom_Client()
-								+ " ! Votre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
+								+ " ! Votre nom d'utilisateur est : " + temporaireC.getNom_Utilisateur() 
 								+ ". Veuillez vous connecter à nouveau.\n\n");
 			break;
 			
@@ -302,7 +320,7 @@ public class Essai_Brut_1 {
 			Livreur temporaireL = new Livreur(nom,prenom,disponibilite,mdp);
 			_livreurs.add(temporaireL);
 			System.out.print("\n\nBienvenue " + temporaireL.getNom_Livreur() + temporaireL.getPrenom_Livreur()
-								+ " ! Votre nom d'utilisateur est : " + temporaireL.get_NomUtilisateur() 
+								+ " ! Votre nom d'utilisateur est : " + temporaireL.getNom_Utilisateur() 
 								+ ". Veuillez vous connecter à nouveau.\n\n");
 			break;
 			
@@ -310,7 +328,7 @@ public class Essai_Brut_1 {
 			Administrateur temporaireA = new Administrateur(nom,prenom,mdp);
 			_administrateurs.add(temporaireA);
 			System.out.print("\n\nBienvenue " + nom + prenom
-								+ " ! Votre nom d'utilisateur est : " + temporaireA.get_NomUtilisateur() 
+								+ " ! Votre nom d'utilisateur est : " + temporaireA.getNom_Utilisateur() 
 								+ ". Veuillez vous connecter à nouveau.\n\n");
 			break;
 			
@@ -321,11 +339,11 @@ public class Essai_Brut_1 {
     	if (_connecter != null) {
     		System.out.print(">>> Informations du compte <<<\n\n");
         	
-        	System.out.print("Nom : " + _connecter.get_NomCompte());
+        	System.out.print("Nom : " + _connecter.getNom_Compte());
         	
-        	System.out.print("\nPrenom : " + _connecter.get_PrenomCompte());
+        	System.out.print("\nPrenom : " + _connecter.getPrenom_Compte());
         	
-    		System.out.print("\nNom utilisateur : " + _connecter.get_NomUtilisateur());
+    		System.out.print("\nNom utilisateur : " + _connecter.getNom_Utilisateur());
     		System.out.print("\nType d'utilisateur : ");
     		
     		if (_connecter.get_Type() == 1) {
@@ -391,7 +409,7 @@ public class Essai_Brut_1 {
     				Client temporaireC = new Client(nom,prenom,codePostal,adresse,mdp);
     				_clients.set(((Client)_connecter).getID_Client(), temporaireC);
     				System.out.print("\n\nBienvenue " + temporaireC.getNom_Client() + temporaireC.getPrenom_Client()
-    									+ " ! Votre nom d'utilisateur est : " + temporaireC.get_NomUtilisateur() 
+    									+ " ! Votre nom d'utilisateur est : " + temporaireC.getNom_Utilisateur() 
     									+ ". Veuillez vous connecter à nouveau.\n\n");
     				break;
     				
@@ -407,7 +425,7 @@ public class Essai_Brut_1 {
     				Livreur temporaireL = new Livreur(nom,prenom,disponibilite,mdp);
     				_livreurs.set(((Livreur)_connecter).getID_Livreur(), temporaireL);
     				System.out.print("\n\nBienvenue " + temporaireL.getNom_Livreur() + temporaireL.getPrenom_Livreur()
-    									+ " ! Votre nom d'utilisateur est : " + temporaireL.get_NomUtilisateur() 
+    									+ " ! Votre nom d'utilisateur est : " + temporaireL.getNom_Utilisateur() 
     									+ ". Veuillez vous connecter à nouveau.\n\n");
     				break;
     				
@@ -415,7 +433,7 @@ public class Essai_Brut_1 {
     				Administrateur temporaireA = new Administrateur(nom,prenom,mdp);
     				_administrateurs.set(((Administrateur)_connecter).getID_Admin(), temporaireA);
     				System.out.print("\n\nBienvenue " + nom + prenom
-    									+ " ! Votre nom d'utilisateur est : " + temporaireA.get_NomUtilisateur() 
+    									+ " ! Votre nom d'utilisateur est : " + temporaireA.getNom_Utilisateur() 
     									+ ". Veuillez vous connecter à nouveau.\n\n");
     				break;
     				
@@ -429,13 +447,14 @@ public class Essai_Brut_1 {
     	
     }
     
+    
     public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
 		int decision = -1;
-		_administrateurs.add(new Administrateur("d","d","d"));
-		_livreurs.add(new Livreur("l","l",true,"l"));
-		_clients.add(new Client("a","a","1","a","a"));
+		_administrateurs.add(new Administrateur("a","a","a"));
+		_livreurs.add(new Livreur("d","d",true,"d"));
+		_clients.add(new Client("c","c","1","c","c"));
 		
 		while (decision != 0) {
 			System.out.print("----{ Suivie de commande }----\n\n");
@@ -493,6 +512,24 @@ public class Essai_Brut_1 {
 			case 5:
 				System.out.print("\nDéconnexion effectuée.\n\n");
 				_connecter = null;
+				break;
+			
+			case 6:
+				if (_connecter.get_Type() != 2 || _connecter.get_Type() != 3) {
+					
+				}
+				else {
+					System.out.print("\nL'option saisie est inconnue.\n");
+				}
+				break;
+			
+			case 7:
+				if (_connecter.get_Type() != 2 || _connecter.get_Type() != 3) {
+					
+				}
+				else {
+					System.out.print("\nL'option saisie est inconnue.\n");
+				}
 				break;
 				
 			default:

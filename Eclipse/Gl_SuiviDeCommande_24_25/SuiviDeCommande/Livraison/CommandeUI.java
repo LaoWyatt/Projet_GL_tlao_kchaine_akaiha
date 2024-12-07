@@ -1,4 +1,4 @@
-package V0_1;
+package Livraison;
 
 import java.util.ArrayList;
 import java.awt.BorderLayout;
@@ -225,7 +225,7 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 					_labelIdCommande.setText("ID Commande : ");
 					_valideCommande.enable();
 					_valideCommande.setText("Mettre à jour");
-					commandesCompte = _commandes.getCommandes();
+					commandesCompte = _commandes.getListeCommandes();
 					break;
 				}
 			

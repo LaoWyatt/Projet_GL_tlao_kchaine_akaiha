@@ -1,4 +1,4 @@
-package V0_1;
+package Livraison;
 
 import java.util.ArrayList;
 
@@ -17,14 +17,16 @@ public class ListCommande {
     	Commande com = null;
     	
     	while (i < _listeCommandes.size() && com == null) {
-    		if (id_com == _listeCommandes.get(i).getID_Commande()) com = _listeCommandes.get(i);
+    		if (id_com == _listeCommandes.get(i).getID_Commande()) {
+    			com = _listeCommandes.get(i);
+    		}
     		i++;
     	}
     	
     	return com;
     }
     
-    protected ArrayList<Commande> getCommandes() {
+    protected ArrayList<Commande> getListeCommandes() {
     	return _listeCommandes;
     }
     

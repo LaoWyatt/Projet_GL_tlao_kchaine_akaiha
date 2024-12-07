@@ -1,10 +1,10 @@
-package V0_1;
+package Livraison;
 
 public class Client extends Compte {
 	
 	private int _id_client;
-	private String _nom;
-	private String _prenom;
+	private String _nom_client;
+	private String _prenom_client;
 	private String _code_postale;
 	private String _adresse;
 	static private int _conteur_cl = 1;
@@ -35,19 +35,19 @@ public class Client extends Compte {
 	}
 	
 	protected void setNom_Client(String n) {
-		_nom = n;
+		_nom_client = n;
 	}
 	
 	public String getNom_Client() {
-		return _nom;
+		return _nom_client;
 	}
 	
 	protected void setPrenom_Client(String p) {
-		_prenom = p;
+		_prenom_client = p;
 	}
 	
 	public String getPrenom_Client() {
-		return _prenom;
+		return _prenom_client;
 	}
 	
 	protected void setCodePostal(String cp) {

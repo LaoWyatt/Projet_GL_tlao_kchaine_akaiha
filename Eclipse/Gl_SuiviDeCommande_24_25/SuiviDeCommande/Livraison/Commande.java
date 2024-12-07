@@ -1,4 +1,4 @@
-package V0_1;
+package Livraison;
 
 import java.time.LocalDate;
 
@@ -53,7 +53,7 @@ public class Commande {
         return _status;
     }
     
-    public void setStatus(int stat) {
+    protected void setStatus(int stat) {
         _status = stat;
     }
     
