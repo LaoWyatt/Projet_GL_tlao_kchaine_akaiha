@@ -53,6 +53,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 		super(fenetre);
 		_clients.add(new Client("Alpha","Beta","PPT","12345","qwerty"));
 		_livreurs.add(new Livreur("Delta","Thibault",true,"qwerty"));
+		_administrateurs.add(new Administrateur("Ender","Jean","azerty"));
 		
 		_corps.setLayout(new BoxLayout(_corps, BoxLayout.PAGE_AXIS));
 	
@@ -150,6 +151,11 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 						if (trouvee.verificationMotDePasse(password)) {
 							GestionUI.setConnecter(trouvee);
 							JOptionPane.showMessageDialog(this, "Bienvenue " + trouvee.get_NomUtilisateur() + " !", "Connexion", JOptionPane.PLAIN_MESSAGE);
+							
+							if (trouvee.get_Type() == 1) {
+								notification();
+							}
+							
 							_textMotDePasse.setText("");
 							_fenetre.update();
 						}
@@ -293,5 +299,15 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 		return _administrateurs;
 	}
 	
-	
+	private void notification() {
+		ListCommande commandes = CommandeUI.getCommandeChange();
+		ArrayList<Commande> actuals = commandes.getClientCommande(((Client)GestionUI.getConnecter()).getID_Client());
+		
+		if (actuals != null) {
+			for (Commande c: actuals) {
+				JOptionPane.showMessageDialog(this, "Votre commande (id: " + c.getID_Commande() + ") statut actuelle : " + CommandeUI.intStatutToString(c.getStatus()), "Commandes", JOptionPane.PLAIN_MESSAGE);
+				CommandeUI.getCommandeChange().supCommande(c.getID_Commande());
+			}
+		}
+	}
 }

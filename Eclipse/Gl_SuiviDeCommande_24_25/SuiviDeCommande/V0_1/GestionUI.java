@@ -27,7 +27,7 @@ public class GestionUI extends JFrame {
 	public GestionUI() {
 		super();
 		this.setTitle("Suivi de Commandes");
-		this.setSize(600,700);
+		this.setSize(700,800);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
 		conteneur = new JPanel(new BorderLayout());

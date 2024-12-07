@@ -2,10 +2,8 @@ package V0_1;
 
 import java.util.ArrayList;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -13,10 +11,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.JScrollPane;
 
 public class CommandeUI extends PanneauUI implements ActionListener{
 	
 	private static ListCommande _commandes = new ListCommande();
+	private static ListCommande _commandesNotif = new ListCommande();
 	private static int _statut = 1;
 	
 	private JButton _buttonRefresh;
@@ -28,6 +29,8 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 	
 	private JButton _buttonStatut;
 	private JButton _valideCommande;
+	
+	private JScrollPane _scroll;
 	
 	private JPanel _zoneCommandes;
 
@@ -44,6 +47,7 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 		
 		_taAffichage = new JTextArea();
 		_taAffichage.setEditable(false);
+		_taAffichage.setFont(_taAffichage.getFont().deriveFont(15f));
 		
 		_labelIdCommande = new JLabel("...");
 		_textIdCommande = new JTextField(12);
@@ -65,74 +69,72 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 		
 		
 		_corps.add(_zoneCommandes);
-		this.add(_corps,BorderLayout.CENTER);
+
+		_scroll = new JScrollPane(_corps, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        _scroll.setBounds(0, 0, 930, 610);
+        
+        this.add(_scroll,BorderLayout.CENTER);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		if (e.getSource() == _buttonRefresh) {
+			this.update();
+		}
+		
+		if (e.getSource() == _valideCommande) {
 			Compte actuelle = GestionUI.getConnecter();
 			
-			if (actuelle != null) {
-				ArrayList<Commande> commandesCompte = null;
-				switch(actuelle.get_Type()) {
-					case 1:
-
-						_buttonStatut.setText("...");
-						_buttonStatut.disable();
-						_textIdCommande.setEditable(false);
-						_labelIdCommande.setText("...");
-						_valideCommande.setText("Commander");
-						commandesCompte = _commandes.getClientCommande(((Client)actuelle).getID_Client());
-						break;
-					
-					case 2:
-						_buttonStatut.setText("En préparation");
-						_statut = 1;
-						_buttonStatut.enable();
-						_textIdCommande.setEditable(true);
-						_labelIdCommande.setText("ID Commande : ");
-						_valideCommande.enable();
-						_valideCommande.setText("Mettre à jour");
-						commandesCompte = _commandes.getClientCommande(((Livreur)actuelle).getID_Livreur());
-						break;
-						
-					case 3:
-						_buttonStatut.setText("En préparation");
-						_statut = 1;
-						_buttonStatut.enable();
-						_textIdCommande.setEditable(true);
-						_labelIdCommande.setText("ID Commande : ");
-						_valideCommande.enable();
-						_valideCommande.setText("Mettre à jour");
-						commandesCompte = _commandes.getCommandes();
-						break;
-					}
+			try {
 				
-				if (!commandesCompte.isEmpty()) {
-					_taAffichage.setText(listCommandeToString(commandesCompte));
+				if (actuelle.get_Type() == 1) {
+					creerCommande();
+					update();
 				} else {
-					_taAffichage.setText("Vide");
+					
+					int idCom = Integer.valueOf(_textIdCommande.getText());
+					_textIdCommande.setText("");
+					if (_commandes.getCommande(idCom) == null) {
+						throw new Exception();
+					}
+					
+					_commandes.getCommande(idCom).setStatus(_statut);
+					
+					verifCommandeNotif(_commandes.getCommande(idCom));
+					update();
 				}
 				
+			} catch (NumberFormatException numberError) {
+				JOptionPane.showMessageDialog(this, "L'iddentifiant de commande comporte que des numéros !", "Commande", JOptionPane.ERROR_MESSAGE);
+			} catch (Exception error) {
+				JOptionPane.showMessageDialog(this, "Commande inexistante !", "Commande", JOptionPane.ERROR_MESSAGE);
 			}
-			
+		}
+		
+		if (e.getSource() == _buttonStatut && GestionUI.getConnecter().get_Type() != 1) {
+			if (_statut == 3) {
+				_statut = 1;
+				_buttonStatut.setText(intStatutToString(_statut));
+			} else {
+				_statut++;
+				_buttonStatut.setText(intStatutToString(_statut));
+			}
 		}
 		
 	}
 
 	private String listCommandeToString(ArrayList<Commande> toDisplay) {
-		String display = "ID Commandes\tID Client\tID Livreur\tDate\t\tÉtat\n";
+		String display = "ID Commandes \t ID Client\tID Livreur\tDate\tÉtat\n";
 		
 		for (Commande c: toDisplay) {
-			display += c.getID_Commande() + "\t\t" + c.getID_Client() + "\t\t" + c.getID_Livreur() + "\t\t" + c.getDate() + "\t\t" + intStatutToString(c.getStatus()) + "\n";
+			display += c.getID_Commande() + "\t\t" + c.getID_Client() + "\t" + c.getID_Livreur() + "\t" + c.getDate() + "\t" + intStatutToString(c.getStatus()) + "\n";
 		}
 		
 		return display;
 	}
 	
-	private String intStatutToString(int statut) {
+	protected static String intStatutToString(int statut) {
 		String str = null;
 		switch(statut) {
 		case 1:
@@ -150,11 +152,90 @@ public class CommandeUI extends PanneauUI implements ActionListener{
 		return str;
 	}
 	
+	public static void creerCommande() {
+		int num_liv = 0;
+		ArrayList<Livreur> _livreurs = ConnexionUI.getLivreurs();
+		Compte _connecter = GestionUI.getConnecter();
+		
+		while (num_liv < _livreurs.size() && _livreurs.get(num_liv).getDispo() == false) {
+			num_liv++;
+		}
+		
+
+		if (_livreurs.get(num_liv).getDispo()) {
+			Commande nouvCommande =  new Commande(((Client) _connecter).getID_Client(), _livreurs.get(num_liv).getID_Livreur());
+
+			_commandes.ajoutCommande(nouvCommande);
+		}
+		else {
+			Commande nouvCommande =  new Commande(((Client) _connecter).getID_Client());
+			_commandes.ajoutCommande(nouvCommande);
+		}
+		
+	}
 	
-	@Override
+	private void verifCommandeNotif(Commande c) {
+		
+		if (_commandesNotif.getCommande(c.getID_Commande()) != null) {
+			_commandesNotif.modifCommande(c, c.getID_Commande());
+		} else {
+			_commandesNotif.ajoutCommande(c);
+		}
+		
+	}
+	
+	protected static ListCommande getCommandeChange(){
+		return _commandesNotif;
+	}
+	
+
 	void update() {
 		// TODO Auto-generated method stub
+		Compte actuelle = GestionUI.getConnecter();
 		
+		if (actuelle != null) {
+			ArrayList<Commande> commandesCompte = null;
+			switch(actuelle.get_Type()) {
+				case 1:
+
+					_buttonStatut.setText("...");
+					_buttonStatut.disable();
+					_textIdCommande.setEditable(false);
+					_labelIdCommande.setText("...");
+					_valideCommande.setText("Commander");
+					commandesCompte = _commandes.getClientCommande(((Client)actuelle).getID_Client());
+					break;
+				
+				case 2:
+					_buttonStatut.setText("En préparation");
+					_statut = 1;
+					_buttonStatut.enable();
+					_textIdCommande.setEditable(true);
+					_labelIdCommande.setText("ID Commande : ");
+					_valideCommande.enable();
+					_valideCommande.setText("Mettre à jour");
+					commandesCompte = _commandes.getClientCommande(((Livreur)actuelle).getID_Livreur());
+					break;
+					
+				case 3:
+					_buttonStatut.setText("En préparation");
+					_statut = 1;
+					_buttonStatut.enable();
+					_textIdCommande.setEditable(true);
+					_labelIdCommande.setText("ID Commande : ");
+					_valideCommande.enable();
+					_valideCommande.setText("Mettre à jour");
+					commandesCompte = _commandes.getCommandes();
+					break;
+				}
+			
+			if (!commandesCompte.isEmpty()) {
+				_taAffichage.setText(listCommandeToString(commandesCompte));
+			} else {
+				_taAffichage.setText("Vide");
+			}
+			
+		}
 	}
 
 }
