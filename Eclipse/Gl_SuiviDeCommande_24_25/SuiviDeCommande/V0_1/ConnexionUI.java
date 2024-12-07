@@ -231,6 +231,7 @@ public class ConnexionUI extends PanneauUI implements ActionListener {
 				GestionUI.setConnecter(null);
 				JOptionPane.showMessageDialog(this, "Déconnectée !", "Connexion", JOptionPane.PLAIN_MESSAGE);
 				_textLogin.setText("");
+				_fenetre.update();
 			}
 		}
 		
