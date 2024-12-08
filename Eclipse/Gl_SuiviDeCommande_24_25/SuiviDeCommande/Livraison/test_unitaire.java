@@ -57,6 +57,38 @@ public class test_unitaire{
 	
 }
 @BeforeAll
+public  static void testCreerLivreur() {
+	String nomTest = "TestN";
+	String prenomTest = "TestP";
+	String mdpTest = "TestMdp";
+
+	Livreur livreurTestLocal = new Livreur(nomTest,prenomTest,false,mdpTest);
+	assertEquals(livreurTestLocal.getNom_Livreur(),nomTest);
+	assertEquals(livreurTestLocal.getPrenom_Livreur(),prenomTest);
+	assertTrue(livreurTestLocal.verificationMotDePasse(mdpTest));
+
+_testLivreur = livreurTestLocal;
+
+
+
+}
+@BeforeAll
+public  static void testCreerAdmin() {
+	String nomTest = "TestN";
+	String prenomTest = "TestP";
+	String mdpTest = "TestMdp";
+
+	Administrateur adminTestLocal = new Administrateur(nomTest,prenomTest,mdpTest);
+	assertEquals(adminTestLocal.getNom_Admin(),nomTest);
+	assertEquals(adminTestLocal.getPrenom_Admin(),prenomTest);
+	assertTrue(adminTestLocal.verificationMotDePasse(mdpTest));
+
+_testAdmin = adminTestLocal;
+
+
+
+}
+@BeforeAll
 	public static void testCreerCommande() {
 	int idClientTest = 1;
 	Commande commandeTestLocal = new Commande(idClientTest);
@@ -104,6 +136,12 @@ public void testModifCommande() {
 	testList = _testListCommande.getListeCommandes();
 	assertEquals(testList.get(0).getID_Client(), idClientTest );
 	
+	
+	
+}
+@Test
+public void testModifDispoLivreur() {
+	_testLivreur.setDispo(false);
 	
 	
 }
