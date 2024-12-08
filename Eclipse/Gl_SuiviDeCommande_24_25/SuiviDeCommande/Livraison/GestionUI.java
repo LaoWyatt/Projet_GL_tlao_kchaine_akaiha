@@ -11,14 +11,14 @@ import javax.swing.JTabbedPane;
 @SuppressWarnings("serial")
 public class GestionUI extends JFrame {
 
-	private JPanel conteneur;
-	private JPanel entete;
-	private JLabel titre;
-	private JTabbedPane tabs = new JTabbedPane();
+	private JPanel _conteneur;
+	private JPanel _entete;
+	private JLabel _titre;
+	private JTabbedPane _tabs = new JTabbedPane();
 	private static Compte _connecter = null;
 	
 	private ConnexionUI _connexionUI;
-	private CommandeUI commandeUI;
+	private CommandeUI _commandeUI;
 	/*
 	private ClientUI clientUI;
 	private LivreurUI livreurUI;
@@ -30,33 +30,33 @@ public class GestionUI extends JFrame {
 		this.setSize(700,800);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-		conteneur = new JPanel(new BorderLayout());
+		_conteneur = new JPanel(new BorderLayout());
 		
 		
-		entete = new JPanel();
-	    entete.setBackground(Color.BLUE);
-	    titre = new JLabel("Suivi de Commandes");
-	    titre.setForeground(Color.WHITE);
-	    titre.setFont(new Font("SansSerif",Font.BOLD,24));
-	    entete.add(titre);
+		_entete = new JPanel();
+	    _entete.setBackground(Color.BLUE);
+	    _titre = new JLabel("Suivi de Commandes");
+	    _titre.setForeground(Color.WHITE);
+	    _titre.setFont(new Font("SansSerif",Font.BOLD,24));
+	    _entete.add(_titre);
 	    
 	    _connexionUI = new ConnexionUI(this);
-	    commandeUI = new CommandeUI(this);
+	    _commandeUI = new CommandeUI(this);
 	    /*
 	    clientUI = new ClientUI(this);
 	    livreurUI = new LivreurUI(this);	
 	    */	
-	    tabs.addTab("Connexion", _connexionUI);
-	    tabs.addTab("Commande", commandeUI);
+	    _tabs.addTab("Connexion", _connexionUI);
+	    _tabs.addTab("Commande", _commandeUI);
 	    /*
 	    tabs.addTab("Notation", clientUI);
 	    tabs.addTab("Resultats", livreurUI);
 	    */
 	    
 	    
-	    conteneur.add(entete,BorderLayout.NORTH);
-	    conteneur.add(tabs,BorderLayout.CENTER);	    
-	    this.setContentPane(conteneur);
+	    _conteneur.add(_entete,BorderLayout.NORTH);
+	    _conteneur.add(_tabs,BorderLayout.CENTER);	    
+	    this.setContentPane(_conteneur);
 	    this.setVisible(true);
 	    this.update();
 	}
@@ -64,17 +64,17 @@ public class GestionUI extends JFrame {
 	
 	void update() {
 		if (_connecter == null) {
-			tabs.setEnabledAt(1, false);
-			tabs.setEnabledAt(2, false);
-			tabs.setEnabledAt(3, false);
+			_tabs.setEnabledAt(1, false);
+			_tabs.setEnabledAt(2, false);
+			_tabs.setEnabledAt(3, false);
 		} else {
-			tabs.setEnabledAt(1, true);			
+			_tabs.setEnabledAt(1, true);			
 			if (_connecter.get_Type() == 1) {
-				tabs.setEnabledAt(2, false);	
-				tabs.setEnabledAt(3, false);
+				_tabs.setEnabledAt(2, false);	
+				_tabs.setEnabledAt(3, false);
 			} else {
-				tabs.setEnabledAt(2, true);	
-				tabs.setEnabledAt(3, true);
+				_tabs.setEnabledAt(2, true);	
+				_tabs.setEnabledAt(3, true);
 			}
 		}
 	}
